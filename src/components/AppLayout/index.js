@@ -28,7 +28,7 @@ class AppLayout extends React.Component {
 
   render() {
     return (
-        <Layout style={{overflow:'hidden', marginTop:-20, marginBottom:-20}}>          
+        <Layout style={{overflow:'hidden', marginTop:-20, marginBottom:-20, background:'white'}}>          
           <ContentWrapper style={{padding:5}} >            
                {this.props.children}            
           </ContentWrapper>

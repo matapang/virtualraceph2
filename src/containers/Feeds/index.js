@@ -7,7 +7,7 @@ export class Feeds extends React.PureComponent { // eslint-disable-line react/pr
   render() {
     return (
       <AppLayout>
-       <CardPostFeed/>
+        <CardPostFeed/>
       </AppLayout>
     );
   }

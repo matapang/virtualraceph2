@@ -1,7 +1,6 @@
 import React from 'react';
-import SpartanChallenge from './pages/SpartanChallenge';
-import TakboMarawi from './pages/TakboMarawi';
+import RacePage from './RacePage';
 export default {
-    "spartan-challenge":() => <SpartanChallenge/>,
-    "takbo-marawi":() => <TakboMarawi/>
+    "spartan-challenge": () => <RacePage metadataUrl="/metadata/races/spartan-challenge.json" />,
+    "takbo-marawi": () => <RacePage metadataUrl="/metadata/races/takbo-marawi.json" />
 };

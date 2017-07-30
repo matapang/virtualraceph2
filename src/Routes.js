@@ -15,7 +15,6 @@ import Feeds from './containers/Feeds';
 import Dashboard from './containers/Dashboard';
 import JoinRace from './containers/JoinRace'
 import Races from './containers/Races';
-import SpartanChallenge from './containers/Races/pages/SpartanChallenge';
 
 export default ({ childProps }) => (
   <Switch>
@@ -24,13 +23,13 @@ export default ({ childProps }) => (
     <UnauthenticatedRoute path="/signup" exact component={Signup} props={childProps} />
     <AuthenticatedRoute path="/notes/new" exact component={NewNote} props={childProps} />
     <AuthenticatedRoute path="/notes/:id" exact component={Notes} props={childProps} />
-    <UnauthenticatedRoute path="/submit-run" exact component={SubmitRun} props={childProps} />
-    <UnauthenticatedRoute path="/feeds" exact component={Feeds} props={childProps} />
-    <UnauthenticatedRoute path="/dashboard" exact component={Dashboard} props={childProps} />
-    <UnauthenticatedRoute path="/join-race/:id" exact component={JoinRace} props={childProps} />
+    <AuthenticatedRoute path="/submit-run" exact component={SubmitRun} props={childProps} />
+    <AuthenticatedRoute path="/feeds" exact component={Feeds} props={childProps} />
+    <AuthenticatedRoute path="/dashboard" exact component={Dashboard} props={childProps} />
+    <AuthenticatedRoute path="/join-race/:id" exact component={JoinRace} props={childProps} />
 
-    <UnauthenticatedRoute path="/races" exact component={Races} props={childProps} />
-    <UnauthenticatedRoute path="/races/:id" exact component={Races} props={childProps} />
+    <AuthenticatedRoute path="/races" exact component={Races} props={childProps} />
+    <AuthenticatedRoute path="/races/:id" exact component={Races} props={childProps} />
     { /* Finally, catch all unmatched routes */ }
     <Route component={NotFound} />
   </Switch>

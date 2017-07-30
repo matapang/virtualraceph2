@@ -1,0 +1,17 @@
+{
+    "data":{
+        "title":"Takbo para sa Marawi",
+        "cardImageUrl":"https://virtualraceph.com/wp-content/uploads/2017/04/tindog_surigao_with_logo-1170x248.jpg",
+        "raceStart":"Dec 1, 2017",
+        "raceEnd":"Dec 27, 2017",
+        "price":" Base - (Php250)",
+        "registration":"Nov 2 - Nov 30, 2017",
+        "description":"This is for the strongest runners out there",
+
+        "categories":[
+            "21K",
+            "10K",
+            "3K"
+        ]
+    }
+}

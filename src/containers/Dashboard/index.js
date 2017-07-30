@@ -5,6 +5,7 @@
  */
 
 import React, { PropTypes } from 'react';
+import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 import AppLayout from '../../components/AppLayout';
 import Button from '../../components/Button';
@@ -21,7 +22,7 @@ export class Dashboard extends React.Component { // eslint-disable-line react/pr
         <div>
           <Tabs defaultActiveKey="1">
             <Tabs.TabPane tab="Current Races" key="1">
-              <CardRaces onClick={(id) => this.props.history.push("/join-race/1")} />
+              <CardRaces onClick={(id) => this.props.history.push(`/races/${id}`)} />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Past Races" key="2">Past Races</Tabs.TabPane>
           </Tabs>
@@ -31,4 +32,4 @@ export class Dashboard extends React.Component { // eslint-disable-line react/pr
   }
 }
 
-export default Dashboard;
+export default withRouter(Dashboard);

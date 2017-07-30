@@ -40,7 +40,7 @@ const AppNav = ({userToken, history, handleLogout}) => {
                 ? 
                   [
                   <RouteNavItem key={3} onClick={handleNavLink} href="/">Dashboard</RouteNavItem>,
-                  <RouteNavItem key={2} onClick={handleNavLink} href="/submit-run">Feeds</RouteNavItem>,
+                  <RouteNavItem key={2} onClick={handleNavLink} href="/feeds">Feeds</RouteNavItem>,
                   <NavItem key={1} onClick={handleLogout}>Logout</NavItem>
                   ]
                  

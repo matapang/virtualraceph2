@@ -4,25 +4,35 @@ import { Upload, Icon, message, Form, Input, InputNumber, Button, Checkbox, Row,
 import FormWrapper from '../FormWrapper';
 import FormItem from '../FormItem';
 import UploadPhoto from '../UploadPhoto';
-import AppLink from '../AppLink'
-const {Option} = Select;
+import AppLink from '../AppLink';
+
+import Select2 from '../Select';
+const { Option } = Select;
 
 
 class FormJoinRace extends Component {
 
-    handleSubmit = () => {
+    handleSubmit = (e) => {
+        e.preventDefault();
         console.log("submit");
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+            }
+            console.log(values);
+        });
     }
 
     render() {
         const imageUrl = "";
+        const { getFieldDecorator } = this.props.form;
         return (
             <Form onSubmit={this.handleSubmit} >
                 <FormWrapper>
                     {/* First Name Last Name */}
                     <div>
                         <h3>Personal Information</h3>
-                        <hr/>
+                        <hr />
                         <Row gutter={10}>
                             <Col md={12} xs={24}>
                                 <FormItem label="First Name">
@@ -52,16 +62,16 @@ class FormJoinRace extends Component {
                     {/* Race Information */}
                     <div>
                         <h3>Race Information</h3>
-                          <hr/>
+                        <hr />
                         <Row gutter={10}>
                             <Col md={12} xs={24}>
                                 <FormItem label="Category">
-                                    <Select >
-                                        <Option value="lucy">3K</Option>
-                                        <Option value="jack">10K</Option>
+                                    {getFieldDecorator('category', {
+                                        rules: [{ required: true, message: 'Please select category' }],
+                                    })(
+                                        <Select2 data={this.props.categories} />
+                                        )}
 
-                                        <Option value="tom">21K</Option>
-                                    </Select>
                                 </FormItem>
                             </Col>
                             <Col md={12} xs={24}>
@@ -83,7 +93,7 @@ class FormJoinRace extends Component {
                     {/* Mailing Address */}
                     <div>
                         <h3>Mailing Address</h3>
-                        <hr/>
+                        <hr />
                         <Row gutter={10}>
 
                             <Col xs={24}>
@@ -105,11 +115,11 @@ class FormJoinRace extends Component {
                         </Row>
                     </div>
 
-                    
-                        <Button type="primary" htmlType="submit">
-                            Register
+
+                    <Button type="primary" htmlType="submit">
+                        Register
                         </Button>
-                    
+
                 </FormWrapper>
             </Form>
         )
@@ -117,7 +127,7 @@ class FormJoinRace extends Component {
 }
 
 FormJoinRace.propTypes = {
-
+    categories: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default Form.create()(FormJoinRace);
