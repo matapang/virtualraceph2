@@ -1,0 +1,8 @@
+{
+  "body": "{\"raceId\":\"marawi-challeng2e\", \"numParticipants\":3,\"orders\":[{\"medals\":2}]}",
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "USER-SUB-1234"
+    }
+  }
+}

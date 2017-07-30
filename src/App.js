@@ -10,10 +10,13 @@ import {
 } from 'react-bootstrap';
 import AWS from 'aws-sdk';
 import { CognitoUserPool, } from 'amazon-cognito-identity-js';
+import AppNav from './components/AppNav';
 import Routes from './Routes';
 import RouteNavItem from './components/RouteNavItem';
 import config from './config.js';
+import theme from './theme';
 import './App.css';
+import { ThemeProvider } from 'styled-components';
 
 class App extends Component {
 
@@ -30,7 +33,7 @@ class App extends Component {
     const currentUser = this.getCurrentUser();
 
     if (currentUser === null) {
-      this.setState({isLoadingUserToken: false});
+      this.setState({ isLoadingUserToken: false });
       return;
     }
 
@@ -38,11 +41,11 @@ class App extends Component {
       const userToken = await this.getUserToken(currentUser);
       this.updateUserToken(userToken);
     }
-    catch(e) {
+    catch (e) {
       alert(e);
     }
 
-    this.setState({isLoadingUserToken: false});
+    this.setState({ isLoadingUserToken: false });
   }
 
   updateUserToken = (userToken) => {
@@ -61,19 +64,14 @@ class App extends Component {
 
   getUserToken(currentUser) {
     return new Promise((resolve, reject) => {
-      currentUser.getSession(function(err, session) {
+      currentUser.getSession(function (err, session) {
         if (err) {
-            reject(err);
-            return;
+          reject(err);
+          return;
         }
         resolve(session.getIdToken().getJwtToken());
       });
     });
-  }
-
-  handleNavLink = (event) => {
-    event.preventDefault();
-    this.props.history.push(event.currentTarget.getAttribute('href'));
   }
 
   handleLogout = (event) => {
@@ -98,31 +96,18 @@ class App extends Component {
       updateUserToken: this.updateUserToken,
     };
 
-    return ! this.state.isLoadingUserToken
-    &&
-    (
-      <div className="App container">
-        <Navbar fluid collapseOnSelect>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <Link to="/">Scratch</Link>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav pullRight>
-              { this.state.userToken
-                ? <NavItem onClick={this.handleLogout}>Logout</NavItem>
-                : [ <RouteNavItem key={1} onClick={this.handleNavLink} href="/signup">Signup</RouteNavItem>,
-                    <RouteNavItem key={2} onClick={this.handleNavLink} href="/login">Login</RouteNavItem> ] }
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-        <Routes childProps={childProps} />
-      </div>
-    );
+    return !this.state.isLoadingUserToken
+      &&
+      (
+        <ThemeProvider theme={theme}>
+          <div className="App container">
+            <AppNav userToken={this.state.userToken} history={this.props.history} handleLogout={this.handleLogout} />
+            <Routes childProps={childProps} />
+          </div>
+        </ThemeProvider>
+      );
   }
 
 }
-
+//{/*<NavItem onClick={this.handleLogout}>Logout</NavItem>*/}
 export default withRouter(App);

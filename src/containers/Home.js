@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import AppLayout from '../components/AppLayout';
+import Dashboard from './Dashboard';
 import {
   PageHeader,
   ListGroup,
@@ -19,7 +21,7 @@ class Home extends Component {
     };
   }
 
-  async componentDidMount() {
+  /*async componentDidMount() {
     if (this.props.userToken === null) {
       return;
     }
@@ -35,7 +37,7 @@ class Home extends Component {
     }
 
     this.setState({ isLoading: false });
-  }
+  }*/
 
   notes() {
     return invokeApig({ path: '/notes' }, this.props.userToken);
@@ -90,12 +92,18 @@ class Home extends Component {
     );
   }
 
+  renderHome() {
+    return (<AppLayout>
+              Test
+            </AppLayout>)
+  }
+
   render() {
     return (
       <div className="Home">
         { this.props.userToken === null
           ? this.renderLander()
-          : this.renderNotes() }
+          : <Dashboard /> }
       </div>
     );
   }

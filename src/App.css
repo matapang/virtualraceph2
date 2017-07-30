@@ -1,7 +1,12 @@
+@import '~antd/dist/antd.css';
 .App {
-  margin-top: 15px;
+  margin-top: 0px;
 }
 
 .App .navbar-brand {
   font-weight: bold;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+  color: orange !important;
 }
