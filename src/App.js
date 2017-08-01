@@ -11,6 +11,7 @@ import {
 import AWS from 'aws-sdk';
 import { CognitoUserPool, } from 'amazon-cognito-identity-js';
 import AppNav from './components/AppNav';
+import ContactBar from './components/ContactBar';
 import Routes from './Routes';
 import RouteNavItem from './components/RouteNavItem';
 import config from './config.js';
@@ -100,7 +101,8 @@ class App extends Component {
       &&
       (
         <ThemeProvider theme={theme}>
-          <div className="App container">
+          <div >
+            <ContactBar/>
             <AppNav userToken={this.state.userToken} history={this.props.history} handleLogout={this.handleLogout} />
             <Routes childProps={childProps} />
           </div>
