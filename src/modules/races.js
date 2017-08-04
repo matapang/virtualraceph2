@@ -11,7 +11,13 @@ export function loadUserRace(past, active) {
 const initialState = fromJS({
     name:'anthony',
     past: {},
-    active: {},
+    active: {
+        "spartan-challenge":{
+            logs:[
+                {distance:5, hour:1, min:23, seconds:12, notes:"This is my first run", imageUrl:"sample url will go here"}
+            ]
+        }
+    },
 });
 
 export default (state = initialState, action) => {

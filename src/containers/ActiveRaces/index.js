@@ -1,19 +1,21 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import CardRaces from '../../components/CardRaces';
 
-const ActiveRaces = ({ races }) => {
+const ActiveRaces = ({ races, history }) => {
     if (races == null) {
         return <h3>No Active Races</h3>
     }
 
     const activeRaces = Object.keys(races).map(key => Object.assign({}, {
+        id:key,
         title: races[key].title,
         description: races[key].description,
         url: races[key].imageUrl
     }));
 
-    return <CardRaces data={activeRaces} />
+    return <CardRaces data={activeRaces} onClick={(id) => history.push(`/races/${id}/logs`)} />
 }
 
 function mapState(state) {
@@ -23,4 +25,4 @@ function mapState(state) {
 }
 
 
-export default connect(mapState)(ActiveRaces);
+export default withRouter(connect(mapState)(ActiveRaces));

@@ -14,6 +14,7 @@ import SubmitRun from './containers/SubmitRun';
 import Feeds from './containers/Feeds';
 import Dashboard from './containers/Dashboard';
 import Races from './containers/Races';
+import RaceLogs from './containers/RaceLogs';
 
 export default ({ childProps }) => (
   <Switch>
@@ -25,9 +26,11 @@ export default ({ childProps }) => (
     <AuthenticatedRoute path="/submit-run" exact component={SubmitRun} props={childProps} />
     <AuthenticatedRoute path="/feeds" exact component={Feeds} props={childProps} />
     <AuthenticatedRoute path="/dashboard" exact component={Dashboard} props={childProps} />
-
+   
     <AuthenticatedRoute path="/races" exact component={Races} props={childProps} />
     <AuthenticatedRoute path="/races/:id" exact component={Races} props={childProps} />
+    <AuthenticatedRoute path="/races/:id/logs" exact component={RaceLogs} props={childProps} />
+
     { /* Finally, catch all unmatched routes */ }
     <Route component={NotFound} />
   </Switch>
