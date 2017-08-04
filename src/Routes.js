@@ -13,7 +13,6 @@ import NotFound from './containers/NotFound';
 import SubmitRun from './containers/SubmitRun';
 import Feeds from './containers/Feeds';
 import Dashboard from './containers/Dashboard';
-import JoinRace from './containers/JoinRace'
 import Races from './containers/Races';
 
 export default ({ childProps }) => (
@@ -26,7 +25,6 @@ export default ({ childProps }) => (
     <AuthenticatedRoute path="/submit-run" exact component={SubmitRun} props={childProps} />
     <AuthenticatedRoute path="/feeds" exact component={Feeds} props={childProps} />
     <AuthenticatedRoute path="/dashboard" exact component={Dashboard} props={childProps} />
-    <AuthenticatedRoute path="/join-race/:id" exact component={JoinRace} props={childProps} />
 
     <AuthenticatedRoute path="/races" exact component={Races} props={childProps} />
     <AuthenticatedRoute path="/races/:id" exact component={Races} props={childProps} />

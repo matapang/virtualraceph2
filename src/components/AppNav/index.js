@@ -28,7 +28,6 @@ const NavBarWrapper = styled(Navbar) `
 
 const AppNav = ({ userToken, history, handleLogout }) => {
   const handleNavLink = (e) => {
-    debugger;
     e.preventDefault();
     history.push(e.currentTarget.getAttribute('href'));
   };

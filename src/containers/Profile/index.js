@@ -9,7 +9,7 @@ const Profile = ({email}) => {
 
 function mapState(state) {
     return {
-        email: state.user["email"]
+        email: state.user.get("email")
     }
 }
 

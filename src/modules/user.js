@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 const UPDATE_USER_INFO = 'UPDATE_USER_INFO';
 
 export function updateUserInfo(email, badge) {
-    return { type: UPDATE_USER_INFO, action: { email, badge } }
+    return { type: UPDATE_USER_INFO,  email,  badge };
 }
 
 // The initial state of the App

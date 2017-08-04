@@ -93,7 +93,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.props.userName);
     return (
       <div className="Home">
         { this.props.userToken === null
