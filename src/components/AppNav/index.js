@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Logo from '../Logo';
 import {
   Nav,
   NavItem,
@@ -12,7 +13,7 @@ import RouteNavItem from '../RouteNavItem';
 
 const NavBarWrapper = styled(Navbar) `
   background:white;
- height:60px;
+  height:60px;
   text-align:center;
   padding:0;
   box-shadow:0 3px 3px 0 rgba(0,0,0,0.14);
@@ -27,6 +28,7 @@ const NavBarWrapper = styled(Navbar) `
 
 const AppNav = ({ userToken, history, handleLogout }) => {
   const handleNavLink = (e) => {
+    debugger;
     e.preventDefault();
     history.push(e.currentTarget.getAttribute('href'));
   };
@@ -35,7 +37,7 @@ const AppNav = ({ userToken, history, handleLogout }) => {
     <NavBarWrapper fluid collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
-          <Link to="/" >VRacePH</Link>
+          <Link to="/" ><Logo/></Link>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>

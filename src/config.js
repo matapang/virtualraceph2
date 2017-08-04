@@ -4,7 +4,8 @@ export default {
     BUCKET: 'virtualrunph-app-uploads'
   },
   apiGateway: {
-    URL: 'https://zsij4cmd8h.execute-api.ap-southeast-1.amazonaws.com/prod',
+    URL: 'https://2sxtvh8133.execute-api.ap-southeast-1.amazonaws.com/prod',
+    //URL:'https://z4fq1yh5f2.execute-api.ap-southeast-1.amazonaws.com/PROD',
     REGION: 'ap-southeast-1',
   },
   cognito: {

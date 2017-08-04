@@ -31,7 +31,6 @@ class FormSubmitRun extends Component {
     }
 
     handleChange = (event) => {
-        console.log(event)
         this.setState({
             [event.target.id]: event.target.value
         });

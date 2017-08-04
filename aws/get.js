@@ -61,3 +61,20 @@ export async function userRaces(event, context, callback) {
   };
   await main(callback, params);
 };
+
+
+
+export async function userRaceLog(event, context, callback) {
+  console.log(`${event.requestContext.identity.cognitoIdentityId}|${event.pathParameters.id}`);
+  const params = {
+    TableName: "virtualrun-userracelog",
+    // 'Key' defines the partition key and sort key of the item to be retrieved
+    // - 'userId': Identity Pool identity id of the authenticated user
+    // - 'id': the race id
+    Key: {
+      userId: `${event.requestContext.identity.cognitoIdentityId}`,
+      raceId:event.pathParameters.id,
+    },
+  };
+  await main(callback, params);
+};

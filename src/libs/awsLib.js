@@ -1,6 +1,7 @@
 import AWS from 'aws-sdk';
 import sigV4Client from './sigV4Client';
 import config from '../config.js';
+import http from './http'
 
 export async function invokeApig(
   { path,
@@ -29,7 +30,6 @@ export async function invokeApig(
 
   body = body ? JSON.stringify(body) : body;
   headers = signedRequest.headers;
-
   const results = await fetch(signedRequest.url, {
     method,
     headers,

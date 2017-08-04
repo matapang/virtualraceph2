@@ -11,7 +11,7 @@ import config from './config'
 
 //AWS.config.update({ region: 'us-east-1' });
 //const dynamoDb = new AWS.DynamoDB.DocumentClient();
-async function main(callback, params){
+async function main(callback, params) {
     try {
         const result = await dynamoDbLib.call('put', params);
         callback(null, success(params.Item));
@@ -53,8 +53,38 @@ export async function userRaces(event, context, callback) {
         Item: {
             userId: event.requestContext.identity.cognitoIdentityId,
             raceId: data.raceId,
-            numParticipants:data.numParticipants,
-            orders:data.orders,
+            numParticipants: data.numParticipants,
+            orders: data.orders,
+            createdAt: new Date().getTime(),
+        },
+    };
+    await main(callback, params);
+}
+
+export async function userRaceLog(event, context, callback) {
+    const data = JSON.parse(event.body);
+    if (data && data.minutes > 59) {
+        callback(null, failure({ status: false, message: 'Minutes should be between 0-59' }));
+    }
+    if (data && !data.email) {
+        callback(null, failure({ status: false, message: 'Email Not Passed' }));
+    }
+    if (data && !data.raceId) {
+        callback(null, failure({ status: false, message: 'Race Not Passed' }));
+    }
+
+    if (data && !Array.isArray(data.logs)) {
+        callback(null, failure({ status: false, message: 'Logs should be array' }));
+    }
+
+
+    const params = {
+        TableName: "virtualrun-userracelog",
+        Item: {
+            userId: event.requestContext.identity.cognitoIdentityId,
+            raceId: data.raceId,
+            email: data.email,
+            logs: data.logs,
             createdAt: new Date().getTime(),
         },
     };

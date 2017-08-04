@@ -1,0 +1,10 @@
+{
+  "pathParameters": {
+    "id": "marawi-challeng2e"
+  },
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "USER-SUB-1234"
+    }
+  }
+}

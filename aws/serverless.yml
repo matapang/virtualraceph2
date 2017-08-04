@@ -1,4 +1,4 @@
-service: virtualrun-app-api
+service: virtualrun-app-api2
 
 plugins:
   - serverless-webpack
@@ -24,7 +24,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:us-east-1:*:*"
+      Resource: "arn:aws:dynamodb:ap-southeast-1:*:*"
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in create.js
@@ -119,5 +119,23 @@ functions:
       - http:
           path: user/races/{id}
           method: delete
+          cors: true
+          authorizer: aws_iam
+  
+  createUserRaceLog:
+    handler: create.userRaceLog
+    events:
+      - http:
+          path: user/log
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+  getUserRaceLog:
+    handler: get.userRaceLog
+    events:
+      - http:
+          path: user/log/{id}
+          method: post
           cors: true
           authorizer: aws_iam

@@ -15,5 +15,5 @@
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
   color: #0da9ef !important;
   background:white;
-    border-top:2px solid #0da9ef;
+   border-top:2px solid #0da9ef;
 }

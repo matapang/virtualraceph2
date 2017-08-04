@@ -1,0 +1,8 @@
+{
+  "body": "{\"raceId\":\"spartan-challeng2e\", \"email\":\"anthony.wong06@yahoo.com\", \"logs\":[{\"hour\":4,\"minutes\":4,\"seconds\":4,\"distance\":4, \"notes\":\"Sample Note\", \"date\":\"2015-01-01\", \"filename\":\"sample.png\" }]}",
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "USER-SUB-1234"
+    }
+  }
+}

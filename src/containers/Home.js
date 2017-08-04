@@ -21,7 +21,7 @@ class Home extends Component {
     };
   }
 
-  /*async componentDidMount() {
+  async componentDidMount() {
     if (this.props.userToken === null) {
       return;
     }
@@ -37,10 +37,10 @@ class Home extends Component {
     }
 
     this.setState({ isLoading: false });
-  }*/
+  }
 
   notes() {
-    return invokeApig({ path: '/notes' }, this.props.userToken);
+    return invokeApig({ path: '/posts' }, this.props.userToken);
   }
 
   renderNotesList(notes) {
@@ -92,13 +92,8 @@ class Home extends Component {
     );
   }
 
-  renderHome() {
-    return (<AppLayout>
-              Test
-            </AppLayout>)
-  }
-
   render() {
+    console.log(this.props.userName);
     return (
       <div className="Home">
         { this.props.userToken === null

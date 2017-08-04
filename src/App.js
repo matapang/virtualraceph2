@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {updateUserInfo} from './modules/user';
 import {
   withRouter,
   Link
@@ -26,17 +28,22 @@ class App extends Component {
 
     this.state = {
       userToken: null,
-      isLoadingUserToken: true,
+      isLoadingUserToken: true
     };
   }
 
   async componentDidMount() {
     const currentUser = this.getCurrentUser();
-
     if (currentUser === null) {
       this.setState({ isLoadingUserToken: false });
       return;
     }
+    this.props.dispatch(updateUserInfo(currentUser.username));
+
+
+    this.setState({
+      userName: currentUser.username
+    });
 
     try {
       const userToken = await this.getUserToken(currentUser);
@@ -60,6 +67,7 @@ class App extends Component {
       UserPoolId: config.cognito.USER_POOL_ID,
       ClientId: config.cognito.APP_CLIENT_ID
     });
+
     return userPool.getCurrentUser();
   }
 
@@ -95,21 +103,24 @@ class App extends Component {
     const childProps = {
       userToken: this.state.userToken,
       updateUserToken: this.updateUserToken,
+      userName:this.state.userName
     };
-
     return !this.state.isLoadingUserToken
       &&
       (
         <ThemeProvider theme={theme}>
           <div >
-            <ContactBar/>
+            <ContactBar />
             <AppNav userToken={this.state.userToken} history={this.props.history} handleLogout={this.handleLogout} />
-            <Routes childProps={childProps} />
+            <div style={{ maxWidth: 992, margin: 'auto' }}>
+              <Routes childProps={childProps} />
+            </div>
           </div>
         </ThemeProvider>
       );
   }
 
 }
-//{/*<NavItem onClick={this.handleLogout}>Logout</NavItem>*/}
-export default withRouter(App);
+
+
+export default withRouter(connect(null, null)(App));
