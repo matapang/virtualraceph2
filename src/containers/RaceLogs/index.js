@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
+import { Button, Spin } from 'antd';
 
 import { invokeApig } from '../..//libs/awsLib';
-import { ListGroup, ListGroupItem, Panel, Alert, Button } from 'react-bootstrap';
-import SubmitRun from '../../containers/SubmitRun';
+import { ListGroup, ListGroupItem, Panel, Alert } from 'react-bootstrap';
+import LogDetails from './LogDetails';
 import Total from './Total';
 
 const Text = styled.label`
@@ -24,7 +25,7 @@ class RaceLogs extends Component {
         try {
             const response = await this.getUserRaceLog();
             if (response && response.logs) {
-                this.setState({ logs:response.logs });
+                this.setState({ logs: response.logs });
             }
         }
         catch (e) {
@@ -36,12 +37,20 @@ class RaceLogs extends Component {
         return invokeApig({ path: `/user/log/${this.props.match.params.id}` }, this.props.userToken);
     }
 
-    renderLogs(logs) {
+    onViewDetails = (log, key) => {
+        this.setState({ selectedLog: log, selectedLogId: key, showDetails: true });
+    }
 
-        const { showSubmitRun } = this.state;
-        if (showSubmitRun) {
-            return <SubmitRun raceId={this.props.match.params.id} />
+    onViewDetailsBack = (shouldFetch) => {
+        if (shouldFetch) {
+            let p = this.getUserRaceLog();
+            p.then((results) => {
+                this.setState({ showDetails: false, logs:results.logs });
+            });
         }
+    }
+
+    renderLogs(logs) {
 
         return (
             <div className="container-fluid">
@@ -55,7 +64,7 @@ class RaceLogs extends Component {
                             {logs.map((log, key) => (<ListGroupItem key={key} style={{ borderLeft: "4px solid #0da9ef" }}>
                                 <label><i className="fa fa-flash" /> Run  {`${key + 1}`}</label>
                                 <div className="pull-right">
-                                    <a>View Details</a>
+                                    <a onClick={() => this.onViewDetails(log, key)}>View Details</a>
                                 </div>
                                 <div>
 
@@ -72,14 +81,22 @@ class RaceLogs extends Component {
         );
     }
 
+
+
     render() {
         const { id } = this.props.match.params;
-        const { logs } = this.state;
+        const { logs, showDetails } = this.state;
+        if (showDetails) {
+            return <LogDetails log={this.state.selectedLog}
+                logId={this.state.selectedLogId} raceId={id}
+                onBack={this.onViewDetailsBack}
+                userToken={this.props.userToken} />
+        }
         return (
             <div>
                 <h1>Race {id}
                     <div className="pull-right">
-                        <Link to={`/submit-run/${id}`} className="btn btn-primary"><i className="fa fa-plus" /> Add Log </Link>
+                        <Button type="primary"><Link to={`/submit-run/${id}`}><i className="fa fa-plus" /> Add Log </Link></Button>
                     </div>
                 </h1>
                 <br />

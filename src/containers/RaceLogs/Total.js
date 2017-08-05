@@ -28,11 +28,12 @@ class Total extends PureComponent {
             <Panel>
                 <div>
                     <Text> {progVal}% </Text>
-                    <Text className="pull-right"><i className="fa fa-line-chart"/></Text>
+                    <Text className="pull-right"><i className="fa fa-line-chart" /></Text>
                 </div>
                 <div>
-                    <label className="control-label">Target:{target}Km</label> |&nbsp;
-                    <label className="control-label">Current: {total}Km</label>
+                    <label className="control-label">Current: {total}Km</label>  |&nbsp;
+                    <label className="control-label">Target:{target}Km</label>
+
                 </div>
 
                 <ProgressBar now={progVal} bsStyle={progClass} />

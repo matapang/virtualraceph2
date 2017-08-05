@@ -1,13 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import styled from 'styled-components';
-import { Upload, Icon, message, Input, InputNumber, Button, Checkbox, Row, Col } from 'antd';
-import {
-    Form,
-    FormGroup,
-    FormControl,
-    ControlLabel,
-    HelpBlock
-} from 'react-bootstrap';
+import { Upload, Icon, message, Input, Button, Checkbox, Row, Col, Form, Spin } from 'antd';
+import InputNumber from '../../components/InputNumber';
+
 import FormWrapper from '../../components/FormWrapper';
 import FormItem from '../../components/FormItem';
 import UploadPhoto from '../../components/UploadPhoto';
@@ -18,21 +13,23 @@ class FormSubmitRun extends Component {
 
     state = {
         distance: 0,
-        minutes:0,
-        seconds:0,
-        notes:''
+        minutes: 0,
+        seconds: 0,
+        notes: ''
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        if (this.props.onSubmit) {
-            this.props.onSubmit(this.state);
-        }
-    }
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+                if (this.props.onSubmit) {
+                    this.props.onSubmit(values);
+                }
+                return;
+            }
+            console.log(err);
 
-    handleChange = (event) => {
-        this.setState({
-            [event.target.id]: event.target.value
         });
     }
 
@@ -41,12 +38,12 @@ class FormSubmitRun extends Component {
     }
 
     render() {
-        const imageUrl = "";
+        const { getFieldDecorator } = this.props.form;
         return (
             <Form onSubmit={this.handleSubmit} >
                 <FormWrapper bordered>
                     <Row>
-                        <Col xs={8}>
+                        <Col xs={24} sm={8}>
                             <FormItem label="Upload Photo">
                                 <UploadPhoto />
                             </FormItem>
@@ -54,47 +51,50 @@ class FormSubmitRun extends Component {
                     </Row>
                     <Row>
                         <Col xs={8}>
-                            <FormGroup controlId="distance">
-                                <ControlLabel>Distance (km)</ControlLabel>
-                                <FormControl type="number" min={0} value={this.state.distance} onChange={this.handleChange} />
-                            </FormGroup>
+                            <FormItem label="Distance">
+                                {getFieldDecorator('distance', {
+                                    rules: [{ required: true, message: 'Distance required' }],
+                                })(
+                                    <InputNumber placeholder="Distance" min={0} className="form-control" />
+                                    )}
+                            </FormItem>
                         </Col>
                     </Row>
                     <Row gutter={5}>
-                        <Col xs={8}>
-                            <FormGroup controlId="hour">
-                                <ControlLabel>Hour</ControlLabel>
-                                <FormControl type="number" min={0} value={this.state.hour} onChange={this.handleChange} />
-                            </FormGroup>
+                        <Col xs={24} sm={8}>
+                            <FormItem label="Hour">
+                                {getFieldDecorator('hour', {
+                                    rules: [{ required: true, message: 'Hour required' }],
+                                })(
+                                    <InputNumber placeholder="Hour" min={0} />
+                                    )}
+                            </FormItem>
                         </Col>
-                        <Col xs={8}>
-                            <FormGroup controlId="minutes">
-                                <ControlLabel>Minutes</ControlLabel>
-                                <FormControl type="number" min={0} max={59} value={this.state.minutes} onChange={this.handleChange} />
-                            </FormGroup>
-                        </Col>
-                        <Col xs={8}>
-                            <FormGroup controlId="seconds">
-                                <ControlLabel>Seconds</ControlLabel>
-                                <FormControl type="number" min={0} max={59} value={this.state.seconds} onChange={this.handleChange} />
-                            </FormGroup>
-                        </Col>
-                    </Row>
+                        <Col xs={24} sm={8}>
+                            <FormItem label="Minutes">
+                                {getFieldDecorator('minutes', {
+                                    rules: [{ required: true, message: 'Minutes required' }],
+                                })(
+                                    <InputNumber min={0} max={59} />
+                                    )}
+                            </FormItem>
 
-                    <Row gutter={5}>
-                        <Col xs={24}>
-                            <FormGroup controlId="notes">
-                                <ControlLabel>Notes</ControlLabel>
-                                <FormControl componentClass="textarea" rows={3} value={this.state.notes} onChange={this.handleChange} />
-                            </FormGroup>
+                        </Col>
+                        <Col xs={24} sm={8}>
+                            <FormItem label="Seconds">
+                                {getFieldDecorator('seconds')(
+                                    <InputNumber min={0} max={59} />
+                                )}
+                            </FormItem>
+
                         </Col>
                     </Row>
 
                     <br />
 
-                 
-                   <Button type="primary" htmlType="submit" > Submit Run</Button>
-                     <Button > Cancel</Button>
+
+                    <Button type="primary" htmlType="submit" > Submit Run</Button>
+                    <Button > Cancel</Button>
                 </FormWrapper>
             </Form>
         )
@@ -105,4 +105,5 @@ FormSubmitRun.propTypes = {
     onSubmit: PropTypes.func
 }
 
-export default FormSubmitRun;
+
+export default Form.create()(FormSubmitRun);
