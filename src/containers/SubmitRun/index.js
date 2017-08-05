@@ -4,9 +4,13 @@ import FormSubmitRun from '../../components/FormSubmitRun';
 import AppLayout from '../../components/AppLayout';
 
 import { invokeApig, s3Upload } from '../../libs/awsLib';
+import config from '../../config';
 
 export class SubmitRun extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
+  state = {
+    showUploadError:true
+  }
   onSubmit = (model, file) => {
     //TODO, call actual API for submit here
     this.submitLog(model, file);
@@ -20,12 +24,16 @@ export class SubmitRun extends React.Component { // eslint-disable-line react/pr
   async submitLog(log, file) {
     const { id } = this.props.match.params;
 
-    let uploadedFilename = null; 
-    if (file) {
+    let uploadedFilename = null;
+    if (file && file.size < config.MAX_ATTACHMENT_SIZE) {
       uploadedFilename = (await s3Upload(file, this.props.userToken)).Location;
     }
-    let newLog = Object.assign({}, log, {uploadedFilename});
-    const model = { log:newLog, raceId: id };
+    else if (file && file.size >= config.MAX_ATTACHMENT_SIZE) {
+      return;
+    }
+
+    let newLog = Object.assign({}, log, { uploadedFilename });
+    const model = { log: newLog, raceId: id };
     try {
       const response = await invokeApig({
         path: '/user/log',
