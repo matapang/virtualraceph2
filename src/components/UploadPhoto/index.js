@@ -2,16 +2,18 @@ import React, { Component, PropTypes } from 'react';
 import styled from 'styled-components';
 import { getBase64 } from '../../libs/util';
 import { Upload, Icon } from 'antd';
+import {s3Upload} from '../../libs/awsLib'
 
 class UploadPhoto extends Component {
 
     state = {
         imageUrl: ''
     }
-    handleUploadPhoto = (info) => {        
+    handleUploadPhoto = (info) => {     
+        console.log(info);   
         if (info.file.status === 'done') {
             // Get this url from response in real world.
-            getBase64(info.file.originFileObj, imageUrl => this.setState({ imageUrl }));
+            //getBase64(info.file.originFileObj, imageUrl => this.setState({ imageUrl }));
         }
     }
 
@@ -22,7 +24,6 @@ class UploadPhoto extends Component {
                 className="photo-uploader"
                 name="avatar"
                 showUploadList={false}
-                action="//jsonplaceholder.typicode.com/posts/"
                 beforeUpload={() => true}
                 onChange={this.handleUploadPhoto}
             >

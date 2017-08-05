@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import styled from 'styled-components';
 import { Upload, Icon, message, Input, Button, Checkbox, Row, Col, Form, Spin } from 'antd';
+
 import InputNumber from '../../components/InputNumber';
 
 import FormWrapper from '../../components/FormWrapper';
@@ -10,6 +11,10 @@ import UploadPhoto from '../../components/UploadPhoto';
 import LoaderButton from '../../components/LoaderButton';
 
 class FormSubmitRun extends Component {
+    constructor(props) {
+        super(props);
+        this.file = null;
+    }
 
     state = {
         distance: 0,
@@ -24,7 +29,7 @@ class FormSubmitRun extends Component {
             if (!err) {
                 console.log('Received values of form: ', values);
                 if (this.props.onSubmit) {
-                    this.props.onSubmit(values);
+                    this.props.onSubmit(values, this.file);
                 }
                 return;
             }
@@ -33,8 +38,8 @@ class FormSubmitRun extends Component {
         });
     }
 
-    handleUploadPhoto = () => {
-
+    handleUploadPhoto = (event) => {
+        this.file = event.target.files[0];
     }
 
     render() {
@@ -45,7 +50,9 @@ class FormSubmitRun extends Component {
                     <Row>
                         <Col xs={24} sm={8}>
                             <FormItem label="Upload Photo">
-                                <UploadPhoto />
+                                <input
+                                    onChange={this.handleUploadPhoto}
+                                    type="file" />
                             </FormItem>
                         </Col>
                     </Row>

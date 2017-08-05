@@ -16,6 +16,7 @@ const Text = styled.label`
 
 class RaceLogs extends Component {
     state = {
+        loading: true,
         logs: [],
         showSubmitRun: false
     }
@@ -25,11 +26,11 @@ class RaceLogs extends Component {
         try {
             const response = await this.getUserRaceLog();
             if (response && response.logs) {
-                this.setState({ logs: response.logs });
+                this.setState({ logs: response.logs, loading: false });
             }
         }
         catch (e) {
-            this.setState({ logs: [] });
+            this.setState({ logs: [], loading: false });
         }
     }
 
@@ -43,9 +44,10 @@ class RaceLogs extends Component {
 
     onViewDetailsBack = (shouldFetch) => {
         if (shouldFetch) {
+            this.setState({ loading: true });
             let p = this.getUserRaceLog();
             p.then((results) => {
-                this.setState({ showDetails: false, logs:results.logs });
+                this.setState({ showDetails: false, logs: results.logs, loading: false });
             });
         }
     }
@@ -93,16 +95,18 @@ class RaceLogs extends Component {
                 userToken={this.props.userToken} />
         }
         return (
-            <div>
-                <h1>Race {id}
-                    <div className="pull-right">
-                        <Button type="primary"><Link to={`/submit-run/${id}`}><i className="fa fa-plus" /> Add Log </Link></Button>
-                    </div>
-                </h1>
-                <br />
-                {logs.length > 0 ?
-                    this.renderLogs(logs) : <Alert bsStyle="warning">You have no logs</Alert>}
-            </div>
+            <Spin spinning={this.state.loading}>
+                <div>
+                    <h1>Race {id}
+                        <div className="pull-right">
+                            <Button type="primary"><Link to={`/submit-run/${id}`}><i className="fa fa-plus" /> Add Log </Link></Button>
+                        </div>
+                    </h1>
+                    <br />
+                    {logs.length > 0 ?
+                        this.renderLogs(logs) : <Alert bsStyle="warning">You have no logs</Alert>}
+                </div>
+            </Spin>
         );
     }
 }
