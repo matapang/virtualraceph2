@@ -136,6 +136,24 @@ functions:
     events:
       - http:
           path: user/log/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  createUserRaceLogEntry:
+    handler: create.userRaceLogEntry
+    events:
+      - http:
+          path: user/log
           method: post
+          cors: true
+          authorizer: aws_iam
+
+  deleteUserRaceLogEntry:
+    handler: delete.userRaceLogEntry
+    events:
+      - http:
+          path: user/log/{id}/{logId}
+          method: delete
           cors: true
           authorizer: aws_iam

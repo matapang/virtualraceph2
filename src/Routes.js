@@ -23,7 +23,7 @@ export default ({ childProps }) => (
     <UnauthenticatedRoute path="/signup" exact component={Signup} props={childProps} />
     <AuthenticatedRoute path="/notes/new" exact component={NewNote} props={childProps} />
     <AuthenticatedRoute path="/notes/:id" exact component={Notes} props={childProps} />
-    <AuthenticatedRoute path="/submit-run" exact component={SubmitRun} props={childProps} />
+    <AuthenticatedRoute path="/submit-run/:id" exact component={SubmitRun} props={childProps} />
     <AuthenticatedRoute path="/feeds" exact component={Feeds} props={childProps} />
     <AuthenticatedRoute path="/dashboard" exact component={Dashboard} props={childProps} />
    

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import {withRouter} from 'react-router-dom';
 import FormSubmitRun from '../../components/FormSubmitRun';
 import AppLayout from '../../components/AppLayout';
 
@@ -6,40 +7,41 @@ import { invokeApig } from '../../libs/awsLib';
 
 export class SubmitRun extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
-  async componentDidMount() {
-    const response = await this.getRaceLog("marawi-challeng2e");
-    console.log(response);
-  }
-
   onSubmit = (model) => {
     //TODO, call actual API for submit here
-    const response = this.submitLog({ content: "test 123" });
-
-    console.log(response);
+    this.submitLog(model);
   }
 
-  getRaceLog(raceId) {
-    return invokeApig({
-      path: `/user/log/${raceId}`,
-      method: 'POST'
-    }, this.props.userToken);
+  goBack = () => {
+    const { id } = this.props.match.params;
+    this.props.history.push(`/races/${id}/logs`);
   }
 
-  submitLog(note) {
-    return invokeApig({
-      path: '/posts',
-      method: 'POST',
-      body: note,
-    }, this.props.userToken);
+  async submitLog(log) {
+    const { id } = this.props.match.params;
+    const model = { log,  raceId: id };
+    
+    try {
+      const response = await invokeApig({
+        path: '/user/log',
+        method: 'POST',
+        body: model,
+      }, this.props.userToken);
+    }
+    catch(e) {
+      console.log(e);
+    }
+    this.goBack();
+    
   }
 
   render() {
     return (
       <AppLayout>
-        <FormSubmitRun onSubmit={this.onSubmit} />
+        <FormSubmitRun onSubmit={this.onSubmit} onCancel={this.goBack} />
       </AppLayout>
     );
   }
 }
 
-export default SubmitRun;
+export default withRouter(SubmitRun);

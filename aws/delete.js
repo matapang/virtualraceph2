@@ -58,3 +58,30 @@ export async function userRaces(event, context, callback) {
     callback(null, failure({ status: false }));
   }
 };
+
+
+export async function userRaceLogEntry(event, context, callback) {
+  const params = {
+    TableName: "virtualrun-userracelog",
+    // 'Key' defines the partition key and sort key of the item to be updated
+    // - 'userId': Identity Pool identity id of the authenticated user
+    // - 'raceId': path parameter
+    Key: {
+      userId: event.requestContext.identity.cognitoIdentityId,
+      raceId: event.pathParameters.id,
+    },
+    // 'UpdateExpression' defines the attributes to be updated
+    // 'ExpressionAttributeValues' defines the value in the update expression
+    UpdateExpression: `REMOVE logs[${event.pathParameters.logId}]`,
+    ReturnValues: 'ALL_NEW',
+  };
+
+  try {
+    const result = await dynamoDbLib.call('update', params);
+    callback(null, success({ status: true }));
+  }
+  catch (e) {
+    console.log(e);
+    callback(null, failure({ status: false }));
+  }
+};

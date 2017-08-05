@@ -1,0 +1,11 @@
+{
+    "pathParameters": {
+        "id":"spartan-challeng2e",
+        "logId": "1"
+    },
+    "requestContext": {
+        "identity": {
+            "cognitoIdentityId": "USER-SUB-1234"
+        }
+    }
+}

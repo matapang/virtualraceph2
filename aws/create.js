@@ -84,9 +84,41 @@ export async function userRaceLog(event, context, callback) {
             userId: event.requestContext.identity.cognitoIdentityId,
             raceId: data.raceId,
             email: data.email,
-            logs: data.logs,
+            logs: [],
             createdAt: new Date().getTime(),
         },
     };
     await main(callback, params);
 }
+
+export async function userRaceLogEntry(event, context, callback) {
+    const data = JSON.parse(event.body);
+    if (data && !data.log) {
+        callback(null, failure({ status: false, error: 'No log property' }));
+    }
+    if (data && !data.raceId) {
+        callback(null, failure({ status: false, error: 'No Race ID' }));
+    }
+    const params = {
+        TableName: "virtualrun-userracelog",
+        Key: {
+            userId: event.requestContext.identity.cognitoIdentityId,
+            raceId: data.raceId,
+        },
+        UpdateExpression: 'SET logs = list_append(logs, :log)',
+        ExpressionAttributeValues: {
+            ':log': data.log ? [data.log] : null,
+        },
+        ReturnValues: 'ALL_NEW',
+    };
+
+
+    try {
+        const result = await dynamoDbLib.call('update', params);
+        callback(null, success({ status: true }));
+    }
+    catch (e) {
+        console.log(e);
+        callback(null, failure({ status: false }));
+    }
+};

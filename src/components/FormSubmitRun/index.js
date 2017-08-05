@@ -92,7 +92,9 @@ class FormSubmitRun extends Component {
 
                     <br />
 
+                 
                    <Button type="primary" htmlType="submit" > Submit Run</Button>
+                     <Button > Cancel</Button>
                 </FormWrapper>
             </Form>
         )

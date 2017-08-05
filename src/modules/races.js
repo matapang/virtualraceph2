@@ -14,7 +14,8 @@ const initialState = fromJS({
     active: {
         "spartan-challenge":{
             logs:[
-                {distance:5, hour:1, min:23, seconds:12, notes:"This is my first run", imageUrl:"sample url will go here"}
+                {distance:5, hour:1, minutes:23, seconds:12, notes:"This is my first run", imageUrl:"sample url will go here"},
+                {distance:7, hour:1, minutes:1, seconds:1, notes:"This is my first run", imageUrl:"sample url will go here"}
             ]
         }
     },

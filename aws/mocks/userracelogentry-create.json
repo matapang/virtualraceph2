@@ -1,0 +1,8 @@
+{
+    "body": "{\"raceId\":\"spartan-challeng2e\",\"log\":{\"distance\":43, \"minutes\":20}}",
+    "requestContext": {
+        "identity": {
+            "cognitoIdentityId": "USER-SUB-1234"
+        }
+    }
+}

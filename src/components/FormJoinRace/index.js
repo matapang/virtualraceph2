@@ -20,7 +20,10 @@ class FormJoinRace extends Component {
                 console.log('Received values of form: ', values);
                 return;
             }
-            this.props.onSubmit(values);
+            console.log(values);
+            if (this.props.onSubmit) {
+                this.props.onSubmit(values);
+            }
         });
     }
 
@@ -51,10 +54,15 @@ class FormJoinRace extends Component {
                         <Row gutter={10}>
                             <Col md={12} xs={24}>
                                 <FormItem label="Contact #">
-                                    <InputNumber
-                                        style={{ width: "100%" }}
-                                        placeHolder="Number"
-                                    />
+                                    {getFieldDecorator('contact', {
+                                        rules: [{ required: true, message: 'Please key in telephone number' }],
+                                    })(
+                                        <InputNumber
+                                            style={{ width: "100%" }}
+                                            placeHolder="Number"
+                                        />
+                                        )}
+
                                 </FormItem>
                             </Col>
                         </Row>
@@ -129,7 +137,7 @@ class FormJoinRace extends Component {
 
 FormJoinRace.propTypes = {
     categories: PropTypes.arrayOf(PropTypes.string),
-    onSubmit:PropTypes.func
+    onSubmit: PropTypes.func
 }
 
 export default Form.create()(FormJoinRace);
