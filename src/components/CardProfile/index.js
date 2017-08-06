@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import TextInfo from '../TextInfo';
-import { Row, Col, Card, Avatar } from 'antd';
+import { Panel, Row, Col, Media } from 'react-bootstrap';
 import Button from '../Button';
 import AppLink from '../AppLink';
 import RunSummary from '../RunSummary';
@@ -16,25 +16,29 @@ class CardProfile extends React.Component {
         const { name, id, distance, pace, runs } = this.props;
         return (
             <div>
-                <Card>
-                    <Row type="flex" gutter={16}>
-                            <Avatar icon="user" shape="square" size="large" />                        
-                            <div>
-                                <h2>{name}</h2>
-                                <span>
+                <Panel>
+                    <Row >
+                        <Col xs={12}>
+                            <Media>
+                                <Media.Left>
+                                    <img width={80} height={80} src="/assets/thumbnail.png" alt="Image" />
+                                </Media.Left>
+                                <Media.Body>
+                                    <Media.Heading>{name}</Media.Heading>
                                     <TextInfo>{id}</TextInfo>
-                                    &nbsp;&nbsp;&nbsp;
                                     <AppLink to="/submit-run"> Following  <b>0</b></AppLink> | Followers <b>0</b>
-                                </span>
-                            </div>
+                                </Media.Body>
+                            </Media>
+                        </Col>
                     </Row>
-                    <Row gutter={10}>
-                        <Col xs={12}> <Link to="/submit-run"><Button type="primary" > Submit Run</Button></Link></Col>
-                        <Col xs={12}><Button > Logs </Button></Col>
+                    <br/>
+                    <Row>
+                        <Col xs={12} md={6}> <Link to="/submit-run"><Button type="primary" > Submit Run</Button></Link></Col>
+                        <Col xs={12} md={6}><Button > Logs </Button></Col>
                     </Row>
 
 
-                </Card>
+                </Panel>
                 <RunSummary distance={distance} pace={pace} runs={runs} />
             </div>
         )

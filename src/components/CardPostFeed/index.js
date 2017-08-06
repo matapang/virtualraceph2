@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import TextInfo from '../TextInfo';
 import { Row, Col, Card, Avatar, Icon, Button } from 'antd';
+import {Panel} from 'react-bootstrap';
 import RunSummary from '../RunSummary';
 
 
@@ -14,7 +15,7 @@ class CardPostFeed extends React.Component {
     render() {
         const { name, id, distance, time, description, onLike, onComment, onHeart } = this.props;
         return (
-            <Card>
+            <Panel>
                 <Row type="flex" gutter={16}>
                     <Avatar icon="user" shape="square" size="large" src="http://lorempixel.com/100/100/sports/1" />
                     <div>
@@ -37,7 +38,7 @@ class CardPostFeed extends React.Component {
                    <Button icon="like-o" type="ghost" title="Like"></Button>
                    <Button  type="ghost"> Comment</Button>
                 </div>                
-            </Card>
+            </Panel>
         )
     }
 }
