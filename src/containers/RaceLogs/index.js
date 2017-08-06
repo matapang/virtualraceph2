@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
-import { Spin } from 'antd';
 import {Button} from "react-bootstrap";
 
 import { invokeApig } from '../..//libs/awsLib';
@@ -10,6 +9,7 @@ import { ListGroup, ListGroupItem, Panel, Alert } from 'react-bootstrap';
 import LogDetails from './LogDetails';
 import LogItem from './LogItem';
 import Total from './Total';
+import Spinner from '../../components/Spinner';
 
 const Text = styled.label`
     font-size:24px;
@@ -87,7 +87,7 @@ class RaceLogs extends Component {
                 userToken={this.props.userToken} />
         }
         return (
-            <Spin spinning={this.state.loading}>
+            <Spinner spinning={this.state.loading}>
                 <div>
                     <h1>Race {id}
                         <div className="pull-right">
@@ -98,7 +98,7 @@ class RaceLogs extends Component {
                     {logs.length > 0 ?
                         this.renderLogs(logs) : <Alert bsStyle="warning">You have no logs</Alert>}
                 </div>
-            </Spin>
+            </Spinner>
         );
     }
 }

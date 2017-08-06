@@ -26,23 +26,27 @@ class LogDetails extends Component {
     }
 
     render() {
-        const { log, logId } = this.props;
+        const { log, logId, onBack } = this.props;
         return (
             <div style={{ margin: 10 }}>
+                <div className="text-right">
+
+                <Button bsStyle="primary" onClick={onBack} > <i className="fa fa-arrow-left"/> Go Back </Button>
+                </div>
                 <div>
                     <div className="row">
                         <div className="col-sm-4">
-                            
-                    <ImageRun src={log.uploadedFilename} className="img-responsive" />
+
+                            <ImageRun src={log.uploadedFilename} className="img-responsive" />
                         </div>
 
                     </div>
 
                     <br />
                     <LogItem log={log} index={logId}>
-                        <div className="text-right">
-                            <Button bsStyle="danger" loading={this.state.loading} onClick={this.onDelete}> <i className="fa fa-trash" />Delete </Button>
-                        </div>
+
+                        <Button bsStyle="danger" loading={this.state.loading} onClick={this.onDelete}> <i className="fa fa-trash" />Delete </Button>
+
                     </LogItem>
 
                 </div>

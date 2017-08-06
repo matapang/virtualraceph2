@@ -9,11 +9,7 @@ import {
     Button
 } from 'react-bootstrap';
 
-import InputNumber from '../../components/InputNumber';
-
 import FormWrapper from '../../components/FormWrapper';
-import FormItem from '../../components/FormItem';
-import UploadPhoto from '../../components/UploadPhoto';
 
 import LoaderButton from '../../components/LoaderButton';
 
@@ -115,7 +111,7 @@ class FormSubmitRun extends Component {
                         isLoading={this.state.isLoading}
                         text="Submit Run"
                         loadingText="Submitting Run..." />&nbsp;
-                    <Button> Cancel</Button>
+                    <Button onClick={this.props.onCancel}> Cancel</Button>
                 </FormWrapper>
             </form>
         )
@@ -123,7 +119,8 @@ class FormSubmitRun extends Component {
 }
 
 FormSubmitRun.propTypes = {
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    onCancel: PropTypes.func,
 }
 
 
