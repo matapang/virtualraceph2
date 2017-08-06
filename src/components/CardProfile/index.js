@@ -33,7 +33,7 @@ class CardProfile extends React.Component {
                     </Row>
                     <br/>
                     <Row>
-                        <Col xs={12} md={6}> <Link to="/submit-run"><Button type="primary" > Submit Run</Button></Link></Col>
+                        <Col xs={12} md={6}> <Link to="/submit-run"><Button bsStyle="primary"> Submit Run</Button></Link></Col>
                         <Col xs={12} md={6}><Button > Logs </Button></Col>
                     </Row>
 

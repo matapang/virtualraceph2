@@ -33,7 +33,7 @@ const AppNav = ({ userToken, history, handleLogout }) => {
   };
 
   return (
-    <NavBarWrapper fluid collapseOnSelect>
+    <Navbar fluid collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
           <Link to="/" ><Logo/></Link>
@@ -54,7 +54,7 @@ const AppNav = ({ userToken, history, handleLogout }) => {
             <RouteNavItem key={2} onClick={handleNavLink} href="/login">Login</RouteNavItem>]}
         </Nav>
       </Navbar.Collapse>
-    </NavBarWrapper>
+    </Navbar>
   )
 }
 

@@ -71,7 +71,7 @@ class Home extends Component {
     return (
       <div className="lander">
         <h1>Virtual Race PH</h1>
-        <p>A simple note taking app</p>
+        <p>Run for a CAUSE</p>
         <div>
           <Link to="/login" className="btn btn-info btn-lg">Login</Link>
           <Link to="/signup" className="btn btn-success btn-lg">Signup</Link>

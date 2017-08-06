@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
-import { Button, Spin } from 'antd';
+import { Spin } from 'antd';
+import {Button} from "react-bootstrap";
 
 import { invokeApig } from '../..//libs/awsLib';
 import { ListGroup, ListGroupItem, Panel, Alert } from 'react-bootstrap';
@@ -99,7 +100,7 @@ class RaceLogs extends Component {
                 <div>
                     <h1>Race {id}
                         <div className="pull-right">
-                            <Button type="primary"><Link to={`/submit-run/${id}`}><i className="fa fa-plus" /> Add Log </Link></Button>
+                            <Link to={`/submit-run/${id}`} className="btn btn-primary" style={{color:"white"}}><i className="fa fa-plus" /> Add Log </Link>
                         </div>
                     </h1>
                     <br />

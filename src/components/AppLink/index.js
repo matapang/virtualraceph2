@@ -4,6 +4,6 @@ import { Link } from 'react-router-dom';
 export default styled(Link)`
     color:grey;
     &:hover {
-        color:orange;
+        color:#0da9ef;
     }
 `;

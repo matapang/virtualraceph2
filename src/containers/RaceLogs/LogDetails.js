@@ -1,22 +1,23 @@
 import React, { Component, PropTypes } from 'react';
-import { Button, Card } from 'antd';
+import { Button, Panel } from 'react-bootstrap';
+import ImageRun from '../../components/ImageRun';
 
 import { invokeApig } from '../..//libs/awsLib';
 import AppLayout from '../../components/AppLayout';
 
 class LogDetails extends Component {
-    state ={
-        loading:false
+    state = {
+        loading: false
     };
 
     onDelete = () => {
-        const { raceId, logId  } = this.props;
+        const { raceId, logId } = this.props;
         this.setState({ loading: true });
         this.deleteLog(raceId, logId);
     }
 
     async deleteLog(raceId, logId) {
-        await invokeApig({ path: `/user/log/${raceId}/${logId}`, method:'DELETE' }, this.props.userToken);
+        await invokeApig({ path: `/user/log/${raceId}/${logId}`, method: 'DELETE' }, this.props.userToken);
         this.setState({ loading: false }, () => {
             if (this.props.onBack) {
                 this.props.onBack(true);
@@ -30,14 +31,14 @@ class LogDetails extends Component {
         return (
             <AppLayout>
                 <div className="text-right">
-                    <Button type="primary" loading={this.state.loading} onClick={this.onDelete}>Delete </Button>
+                    <Button bsStyle="danger" loading={this.state.loading} onClick={this.onDelete}> <i className="fa fa-trash" />Delete </Button>
                 </div>
 
-                <Card bodyStyle={{ padding: 0 }}>
-
+                <Panel>
+                    <ImageRun src={log.uploadedFilename}/>
                     {JSON.stringify(log)}
 
-                </Card>
+                </Panel>
             </AppLayout>
         );
     }
