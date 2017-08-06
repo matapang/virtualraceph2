@@ -110,7 +110,6 @@ class App extends Component {
       (
         <ThemeProvider theme={theme}>
           <div >
-            <ContactBar />
             <AppNav userToken={this.state.userToken} history={this.props.history} handleLogout={this.handleLogout} />
             <div style={{ maxWidth: 992, margin: 'auto' }}>
               <Routes childProps={childProps} />

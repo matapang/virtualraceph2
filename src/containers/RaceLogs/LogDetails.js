@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Button, Panel } from 'react-bootstrap';
+import { Button, Panel, Row, Col } from 'react-bootstrap';
 import ImageRun from '../../components/ImageRun';
-
+import LogItem from './LogItem';
 import { invokeApig } from '../..//libs/awsLib';
-import AppLayout from '../../components/AppLayout';
 
 class LogDetails extends Component {
     state = {
@@ -27,19 +26,27 @@ class LogDetails extends Component {
     }
 
     render() {
-        const { log } = this.props;
+        const { log, logId } = this.props;
         return (
-            <AppLayout>
-                <div className="text-right">
-                    <Button bsStyle="danger" loading={this.state.loading} onClick={this.onDelete}> <i className="fa fa-trash" />Delete </Button>
+            <div style={{ margin: 10 }}>
+                <div>
+                    <div className="row">
+                        <div className="col-sm-4">
+                            
+                    <ImageRun src={log.uploadedFilename} className="img-responsive" />
+                        </div>
+
+                    </div>
+
+                    <br />
+                    <LogItem log={log} index={logId}>
+                        <div className="text-right">
+                            <Button bsStyle="danger" loading={this.state.loading} onClick={this.onDelete}> <i className="fa fa-trash" />Delete </Button>
+                        </div>
+                    </LogItem>
+
                 </div>
-
-                <Panel>
-                    <ImageRun src={log.uploadedFilename}/>
-                    {JSON.stringify(log)}
-
-                </Panel>
-            </AppLayout>
+            </div>
         );
     }
 }

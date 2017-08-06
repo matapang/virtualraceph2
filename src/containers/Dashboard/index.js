@@ -5,7 +5,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import AppLayout from '../../components/AppLayout';
 import Button from '../../components/Button';
@@ -14,29 +14,30 @@ import CardRaces from '../../components/CardRaces';
 import ActiveRaces from '../ActiveRaces';
 import Logo from '../../components/Logo';
 import Profile from '../Profile';
-import { Tabs } from 'antd';
+
+import { Tabs, Tab } from 'react-bootstrap';
 
 export class Dashboard extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <AppLayout>
         {/* Profole submit run goes here*/}
-        
-        <Profile />
-        <div>
-          <Tabs defaultActiveKey="1">
-            <Tabs.TabPane tab="Event Races" key="1">
-              <CardRaces onClick={(id) => this.props.history.push(`/races/${id}`)} />
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Active Races" key="2">
-              <ActiveRaces />
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Past Races" key="3">Past Races
 
-              <Logo/>
-            </Tabs.TabPane>
-          </Tabs>
-        </div>
+        <Profile />
+
+
+        <Tabs defaultActiveKey={2}>
+          <Tab eventKey={1} title="Event Races">
+            <CardRaces onClick={(id) => this.props.history.push(`/races/${id}`)} />
+          </Tab>
+          <Tab eventKey={2} title="Active Races">
+            <ActiveRaces />
+          </Tab>
+          <Tab eventKey={3} title="Past Races">
+            Past Races
+          </Tab>
+
+        </Tabs>
       </AppLayout>
     );
   }

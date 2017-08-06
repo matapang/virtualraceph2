@@ -8,6 +8,7 @@ import {Button} from "react-bootstrap";
 import { invokeApig } from '../..//libs/awsLib';
 import { ListGroup, ListGroupItem, Panel, Alert } from 'react-bootstrap';
 import LogDetails from './LogDetails';
+import LogItem from './LogItem';
 import Total from './Total';
 
 const Text = styled.label`
@@ -64,22 +65,12 @@ class RaceLogs extends Component {
 
                     <div className="col-md-8">
                         <ListGroup>
-                            {logs.map((log, key) => (<ListGroupItem key={key} style={{ borderLeft: "4px solid #0da9ef" }}>
-                                <label><i className="fa fa-flash" /> Run  {`${key + 1}`}</label>
-                                <div className="pull-right">
-                                    <a onClick={() => this.onViewDetails(log, key)}>View Details</a>
-                                </div>
-                                <div>
-
-                                    <Text><i className="fa fa-fw fa-road" />{log.distance} Km</Text> &nbsp;&nbsp;
-                                     <Text><i className="fa fa-fw fa-clock-o" />{log.hour}:{log.minutes}:{log.seconds} </Text>
-
-                                </div>
-
-                            </ListGroupItem>))}
+                            {logs.map((log, key) => <LogItem log={log} key={key} index={key} onClick={()=> this.onViewDetails(log, key)}/>)}
                         </ListGroup>
                     </div>
                 </div>
+
+                
             </div>
         );
     }

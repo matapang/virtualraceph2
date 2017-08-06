@@ -7,7 +7,7 @@ class Logo extends Component {
                 style={{
                     marginTop:-10,                    
                     display: "block",
-                    maxWidth:"230px",
+                    maxWidth:"200px",
                     maxHeight:"50px",
                     width: "auto",
                     height: "auto"

@@ -33,7 +33,7 @@ const AppNav = ({ userToken, history, handleLogout }) => {
   };
 
   return (
-    <Navbar fluid collapseOnSelect>
+    <Navbar fluid collapseOnSelect inverse>
       <Navbar.Header>
         <Navbar.Brand>
           <Link to="/" ><Logo/></Link>

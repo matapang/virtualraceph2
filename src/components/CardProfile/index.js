@@ -36,10 +36,7 @@ class CardProfile extends React.Component {
                         <Col xs={12} md={6}> <Link to="/submit-run"><Button bsStyle="primary"> Submit Run</Button></Link></Col>
                         <Col xs={12} md={6}><Button > Logs </Button></Col>
                     </Row>
-
-
                 </Panel>
-                <RunSummary distance={distance} pace={pace} runs={runs} />
             </div>
         )
     }
