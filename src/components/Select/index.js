@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Select as AntSelect} from 'antd';
-const {Option}  = AntSelect;
+import  {FormControl} from 'react-bootstrap';
 
 class Select extends React.PureComponent {
     render() {
         const {data, value, onChange} = this.props;
         if (data == null) return false;
-        return (<AntSelect onChange={onChange}>
-                    {data.map((item, key) => <Option key={key} value={item}> {item}</Option>)}
-                </AntSelect>
+        return (<FormControl componentClass="select" onChange={onChange}>
+                    {data.map((item, key) => <option key={key} value={item}> {item}</option>)}
+                </FormControl>
                 )
     }
 }

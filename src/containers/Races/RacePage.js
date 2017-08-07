@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Row, Col, Button } from 'antd'
+import { Panel, Row, Col, Button } from "react-bootstrap";
 import FormJoinRace from '../../components/FormJoinRace';
 import RaceSummary from '../../components/RaceSummary';
 import http from '../../libs/http';
@@ -20,13 +20,15 @@ class RacePage extends Component {
     render() {
         const { details } = this.state;
         return (
-            <div>
+            <div style={{overflowX:"hidden"}}>
+                <br/>
                 <Row>
-                    <Col xs={24} sm={18}>
-                        <Card bodyStyle={{ padding: 0 }}>
-                            {details.cardImageUrl && <img src={details.cardImageUrl} className="img-responsive" />}
+                    <Col xs={12}>
+                        {details.cardImageUrl && <img src={details.cardImageUrl} className="img-responsive" />}
+                        <Panel>
+                            
                             <div style={{padding:10}}>
-                                <Button type="primary" style={{ width: "100%" }}>Join Race</Button>
+                                <Button bsStyle="primary" style={{ width: "100%" }}>Join Race</Button>
                                 <RaceSummary {...details} />
                                 <hr />
                                 <br />
@@ -34,11 +36,13 @@ class RacePage extends Component {
                                     {details.description}
                                 </div>
                             </div>
-                        </Card>
+                        </Panel>
 
-                        <FormJoinRace categories={details.categories} />
                     </Col>
                 </Row>
+
+                
+                <FormJoinRace categories={details.categories} />
             </div>
         );
     }

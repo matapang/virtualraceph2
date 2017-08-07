@@ -1,143 +1,173 @@
 import React, { Component, PropTypes } from 'react';
 import styled from 'styled-components';
-import { Upload, Icon, message, Form, Input, InputNumber, Button, Checkbox, Row, Col, Select } from 'antd';
+import {
+    Row,
+    Col,
+    FormGroup,
+    FormControl,
+    ControlLabel,
+    Panel,
+    Button
+} from 'react-bootstrap';
 import FormWrapper from '../FormWrapper';
 import FormItem from '../FormItem';
-import UploadPhoto from '../UploadPhoto';
 import AppLink from '../AppLink';
 
-import Select2 from '../Select';
-const { Option } = Select;
+import Select from '../Select';
+import ShirtSizes from './ShirtSizes';
 
+
+const SHIRT_SIZES = [
+    "2XS (17 x 24 inches)",
+    "XS (18 x 25 inches)",
+    "S (19 x 25 inches)",
+    "M (20 x 27 inches)",
+    "L (21 x 28 inches)",
+    "XL (22 x 29 inches)",
+    "2XL (23 x 30 inches)",
+    "Custom"
+];
+
+const AGE_GROUP = [
+    "17 and Below",
+    "18 to 24",
+    "25 to 34",
+    "35 to 44",
+    "45 to 54",
+    "55 to 64",
+    "65 and Up",
+];
 
 class FormJoinRace extends Component {
 
+    state = {
+        distance: 0,
+        hour: 0,
+        minutes: 0,
+        seconds: 0,
+    }
+
+
+    validateForm() {
+        return this.state.distance > 0 && this.state.minutes > 0;
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log("submit");
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-                return;
-            }
-            console.log(values);
-            if (this.props.onSubmit) {
-                this.props.onSubmit(values);
-            }
+        if (this.props.onSubmit) {
+            this.props.onSubmit(this.state);
+        }
+    }
+
+
+    handleChange = (event) => {
+        console.log(event.target.value)
+        this.setState({
+            [event.target.id]: event.target.value
         });
     }
 
+
+    handleUploadPhoto = (event) => {
+        this.file = event.target.files[0];
+    }
     render() {
         const imageUrl = "";
-        const { getFieldDecorator } = this.props.form;
+        const { categories } = this.props;
         return (
-            <Form onSubmit={this.handleSubmit} >
+            <form onSubmit={this.handleSubmit} >
                 <FormWrapper>
-                    {/* First Name Last Name */}
-                    <div>
-                        <h3>Personal Information</h3>
-                        <hr />
-                        <Row gutter={10}>
-                            <Col md={12} xs={24}>
-                                <FormItem label="First Name">
-                                    <Input placeholder="First Name" />
-                                </FormItem>
-                            </Col>
-                            <Col md={12} xs={24}>
-                                <FormItem label="Last Name">
-                                    <Input placeholder="Last Name" />
-                                </FormItem>
-                            </Col>
-                        </Row>
+                    <h4>Runner Details </h4>
+                    <Row>
+                        <Col xs={12} sm={5}>
+                            <FormGroup controlId="firstName ">
+                                <ControlLabel>First Name</ControlLabel>
+                                <FormControl type="text" onChange={this.handleChange} />
+                            </FormGroup>
+                        </Col>
+                        <Col xs={12}  sm={5} >
+                            <FormGroup controlId="lasName ">
+                                <ControlLabel>Last Name</ControlLabel>
+                                <FormControl type="text" onChange={this.handleChange} />
+                            </FormGroup>
+                        </Col>
+                        <Col xs={12}  sm={2}>
+                            <FormGroup controlId="sex">
+                                <ControlLabel>Sex</ControlLabel>
+                                <Select data={["Male", "Female"]} onChange={this.handleChange} />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    <hr />
+                    <br />
+                    <h4>Contact Details</h4>
 
-                        {/* Phone  */}
-                        <Row gutter={10}>
-                            <Col md={12} xs={24}>
-                                <FormItem label="Contact #">
-                                    {getFieldDecorator('contact', {
-                                        rules: [{ required: true, message: 'Please key in telephone number' }],
-                                    })(
-                                        <InputNumber
-                                            style={{ width: "100%" }}
-                                            placeHolder="Number"
-                                        />
-                                        )}
+                    <Row>
+                        <Col xs={6}>
+                            <FormGroup controlId="email">
+                                <ControlLabel>Email Address</ControlLabel>
+                                <FormControl type="text" onChange={this.handleChange} />
+                            </FormGroup>
+                        </Col>
+                        <Col xs={6}>
+                            <FormGroup controlId="contact">
+                                <ControlLabel>Contact #</ControlLabel>
+                                <FormControl type="text" onChange={this.handleChange} />
+                            </FormGroup>
+                        </Col>
+                    </Row>
 
-                                </FormItem>
-                            </Col>
-                        </Row>
-                    </div>
+                    <hr />
+                    <br />
+                    <h4>Race Details </h4>
+                    <Row>
+                        <Col xs={12} sm={4}>
+                            <FormGroup controlId="shirtSize">
+                                <ControlLabel>Shirt Size</ControlLabel>
+                                <ShirtSizes  onChange={this.handleChange} />
+                            </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={4}>
+                            <FormGroup controlId="category">
+                                <ControlLabel>Category</ControlLabel>
+                                <Select data={categories} onChange={this.handleChange} />
+                            </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={4}>
+                            <FormGroup controlId="ageGroup">
+                                <ControlLabel>Age Group</ControlLabel>
+                                <Select data={AGE_GROUP} onChange={this.handleChange} />
+                            </FormGroup>
+                        </Col>
+                    </Row>
 
-                    {/* Race Information */}
-                    <div>
-                        <h3>Race Information</h3>
-                        <hr />
-                        <Row gutter={10}>
-                            <Col md={12} xs={24}>
-                                <FormItem label="Category">
-                                    {getFieldDecorator('category', {
-                                        rules: [{ required: true, message: 'Please select category' }],
-                                    })(
-                                        <Select2 data={this.props.categories} />
-                                        )}
+                    <hr />
+                    <br />
+                    <h4>Shipping Address </h4>
+                    <Row>                               
 
-                                </FormItem>
-                            </Col>
-                            <Col md={12} xs={24}>
-                                <FormItem label="TShirt Size">
-                                    <Select >
-                                        <Option value="lucy">XS</Option>
-                                        <Option value="jack">SM</Option>
+                        <Col xs={12}>
+                            <FormGroup controlId="notes">
+                                <ControlLabel>Complete Adress <small>(Unit #, Street, PostalCode, Country )</small></ControlLabel>
+                                <FormControl componentClass="textarea" onChange={this.handleChange} rows={4}/>
+                            </FormGroup>
+                        </Col>
+                       
+                    </Row>
 
-                                        <Option value="tom">M</Option>
-                                        <Option value="tom">L</Option>
-
-                                        <Option value="tom">XL</Option>
-                                    </Select>
-                                </FormItem>
-                            </Col>
-                        </Row>
-                    </div>
-
-                    {/* Mailing Address */}
-                    <div>
-                        <h3>Mailing Address</h3>
-                        <hr />
-                        <Row gutter={10}>
-
-                            <Col xs={24}>
-                                <FormItem label="Address">
-                                    <Input.TextArea rows={4} placeholder="e.g Street, Bgy, City" />
-                                </FormItem>
-                            </Col>
-
-                            <Col md={12} xs={24}>
-                                <FormItem label="Country">
-                                    <Select placeholder="Country" />
-                                </FormItem>
-                            </Col>
-                            <Col md={12} xs={24}>
-                                <FormItem label="Postal Code">
-                                    <Input placeholder="Postal Code" />
-                                </FormItem>
-                            </Col>
-                        </Row>
-                    </div>
-
-
-                    <Button type="primary" htmlType="submit">
-                        Register
-                        </Button>
 
                 </FormWrapper>
-            </Form>
+            </form >
         )
     }
 }
 
 FormJoinRace.propTypes = {
     categories: PropTypes.arrayOf(PropTypes.string),
+    categories: PropTypes.arrayOf(PropTypes.string),
     onSubmit: PropTypes.func
 }
 
-export default Form.create()(FormJoinRace);
+export default FormJoinRace;
+
+

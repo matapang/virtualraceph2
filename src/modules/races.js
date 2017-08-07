@@ -1,32 +1,41 @@
 
+import http from '../libs/http';
 import { fromJS } from 'immutable';
 
 const LOAD_USER_RACES = 'LOAD_USER_RACES';
+const FETCH_EVENT_RACES_START = 'FETCH_EVENT_RACES_START';
+const FETCH_EVENT_RACES_SUCCESS = 'FETCH_EVENT_RACES_SUCCESS';
 
 export function loadUserRace(past, active) {
-    return { type: LOAD_USER_RACES,  past, active }
+    return { type: LOAD_USER_RACES, past, active }
+}
+
+export function fetchEventRaces(races) {
+    return function (dispatch) {
+        dispatch({ type: FETCH_EVENT_RACES_START });
+        return http.get("/metadata/races/summary.json").then(r => {
+            dispatch({ type: FETCH_EVENT_RACES_SUCCESS, races: r.data });
+            return r.data;
+        })
+        
+    }
 }
 
 // The initial state of the App
 const initialState = fromJS({
-    name:'anthony',
-    past: {},
-    active: {
-        "spartan-challenge":{
-            logs:[
-                {distance:5, hour:1, minutes:23, seconds:12, notes:"This is my first run", imageUrl:"sample url will go here"},
-                {distance:7, hour:1, minutes:1, seconds:1, notes:"This is my first run", imageUrl:"sample url will go here"}
-            ]
-        }
-    },
+    items: [],
+    loading: false
 });
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case LOAD_USER_RACES:
+        case FETCH_EVENT_RACES_START:
             return state
-                    .set("past", action.past)
-                    .set("active", action.active)
+                .set("loading", true);
+        case FETCH_EVENT_RACES_SUCCESS:            
+            return state
+                .set("items", action.races)
+                .set("loading", false)
         default:
             return state
     }

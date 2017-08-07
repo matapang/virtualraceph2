@@ -14,6 +14,7 @@ import CardRaces from '../../components/CardRaces';
 import ActiveRaces from '../ActiveRaces';
 import Logo from '../../components/Logo';
 import Profile from '../Profile';
+import EventRaces from '../EventsRaces';
 
 import { Tabs, Tab } from 'react-bootstrap';
 
@@ -28,7 +29,8 @@ export class Dashboard extends React.Component { // eslint-disable-line react/pr
 
         <Tabs defaultActiveKey={2}>
           <Tab eventKey={1} title="Event Races">
-            <CardRaces onClick={(id) => this.props.history.push(`/races/${id}`)} />
+            {/*<CardRaces onClick={(id) => this.props.history.push(`/races/${id}`)} />*/}
+            <EventRaces />
           </Tab>
           <Tab eventKey={2} title="Active Races">
             <ActiveRaces />
