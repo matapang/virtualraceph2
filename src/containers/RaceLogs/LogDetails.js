@@ -16,7 +16,7 @@ class LogDetails extends Component {
     }
 
     async deleteLog(raceId, logId) {
-        await invokeApig({ path: `/user/log/${raceId}/${logId}`, method: 'DELETE' }, this.props.userToken);
+        await invokeApig({ path: `/user/log-entry/${raceId}/${logId}`, method: 'DELETE' }, this.props.userToken);
         this.setState({ loading: false }, () => {
             if (this.props.onBack) {
                 this.props.onBack(true);

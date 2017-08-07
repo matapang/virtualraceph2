@@ -30,13 +30,12 @@ export class Dashboard extends React.Component { // eslint-disable-line react/pr
         <Tabs defaultActiveKey={2}>
           <Tab eventKey={1} title="Event Races">
             {/*<CardRaces onClick={(id) => this.props.history.push(`/races/${id}`)} />*/}
-            <EventRaces />
+            <EventRaces  onClick={(id) => this.props.history.push(`/races/${id}`)}/>
           </Tab>
           <Tab eventKey={2} title="Active Races">
             <ActiveRaces />
           </Tab>
           <Tab eventKey={3} title="Past Races">
-            Past Races
           </Tab>
 
         </Tabs>

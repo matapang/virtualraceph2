@@ -71,19 +71,13 @@ export async function userRaceLog(event, context, callback) {
     }
     if (data && !data.raceId) {
         callback(null, failure({ status: false, message: 'Race Not Passed' }));
-    }
-
-    if (data && !Array.isArray(data.logs)) {
-        callback(null, failure({ status: false, message: 'Logs should be array' }));
-    }
-
+    }    
 
     const params = {
         TableName: "virtualrun-userracelog",
         Item: {
-            userId: event.requestContext.identity.cognitoIdentityId,
+            userId: data.email,
             raceId: data.raceId,
-            email: data.email,
             logs: [],
             createdAt: new Date().getTime(),
         },
@@ -99,10 +93,14 @@ export async function userRaceLogEntry(event, context, callback) {
     if (data && !data.raceId) {
         callback(null, failure({ status: false, error: 'No Race ID' }));
     }
+    if (data && !data.email) {
+        callback(null, failure({ status: false, error: 'No email address provided' }));
+    }
+    console.log(data.email)
     const params = {
         TableName: "virtualrun-userracelog",
         Key: {
-            userId: event.requestContext.identity.cognitoIdentityId,
+            userId: data.email,
             raceId: data.raceId,
         },
         UpdateExpression: 'SET logs = list_append(logs, :log)',

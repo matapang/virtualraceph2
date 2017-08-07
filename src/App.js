@@ -104,7 +104,7 @@ class App extends Component {
       userToken: this.state.userToken,
       updateUserToken: this.updateUserToken,
       userName:this.state.userName
-    };
+    };    
     return !this.state.isLoadingUserToken
       &&
       (

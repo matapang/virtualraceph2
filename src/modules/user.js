@@ -4,8 +4,8 @@ import { fromJS } from 'immutable';
 const UPDATE_USER_INFO = 'UPDATE_USER_INFO';
 const UPDATE_USER_TOKEN = 'UPDATE_USER_TOKEN';
 
-export function updateUserInfo(email, badge) {
-    return { type: UPDATE_USER_INFO, email, badge };
+export function updateUserInfo(email, name, profileImageUrl) {
+    return { type: UPDATE_USER_INFO, email, name, profileImageUrl };
 }
 
 export function updateUserToken(token) {
@@ -15,7 +15,9 @@ export function updateUserToken(token) {
 // The initial state of the App
 const initialState = fromJS({
     email: '',
-    badge: '',
+    name:'',
+    profileImageUrl:'',
+    
     token: ''
 });
 
@@ -24,7 +26,8 @@ export default (state = initialState, action) => {
         case UPDATE_USER_INFO:
             return state
                 .set("email", action.email)
-                .set("badge", action.badge)
+                .set("name", action.name)
+                .set("profileImageUrl", action.profileImageUrl);
         case UPDATE_USER_TOKEN:
             return state
                 .set("userToken", action.token)

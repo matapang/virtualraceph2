@@ -1,5 +1,6 @@
 export default {
-  MAX_ATTACHMENT_SIZE: 5000000,
+  FB_APP_ID:"162447364328921",
+  MAX_ATTACHMENT_SIZE: 3000000,
   s3: {
     BUCKET: 'virtualrunph-app-uploads'
   },

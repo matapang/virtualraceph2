@@ -10,7 +10,7 @@ export async function invokeApig(
     queryParams = {},
     body }, userToken) {
 
-  await getAwsCredentials(userToken);
+  await getAwsFBCredentials(userToken);
 
   const signedRequest = sigV4Client
     .newClient({
@@ -28,10 +28,11 @@ export async function invokeApig(
       body
     });
 
-  console.log(body);
+  
   body = body ? JSON.stringify(body) : body;
   console.log(body);
   headers = signedRequest.headers;
+  console.log(headers);
   const results = await fetch(signedRequest.url, {
     method,
     headers,
@@ -49,7 +50,7 @@ export function getAwsCredentials(userToken) {
   if (AWS.config.credentials && Date.now() < AWS.config.credentials.expireTime - 60000) {
     return;
   }
-
+    
   const authenticator = `cognito-idp.${config.cognito.REGION}.amazonaws.com/${config.cognito.USER_POOL_ID}`;
 
   AWS.config.update({ region: config.cognito.REGION });
@@ -64,8 +65,25 @@ export function getAwsCredentials(userToken) {
   return AWS.config.credentials.getPromise();
 }
 
+export function getAwsFBCredentials(userToken) {
+  if (AWS.config.credentials && Date.now() < AWS.config.credentials.expireTime - 60000) {
+    return;
+  }
+
+  AWS.config.update({ region: config.cognito.REGION });
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: config.cognito.IDENTITY_POOL_ID,
+    Logins: {
+      'graph.facebook.com': userToken
+    }
+  })
+
+  return AWS.config.credentials.getPromise();
+}
+
+
 export async function s3Upload(file, userToken) {
-  await getAwsCredentials(userToken);
+  await getAwsFBCredentials(userToken);
 
   const s3 = new AWS.S3({
     params: {

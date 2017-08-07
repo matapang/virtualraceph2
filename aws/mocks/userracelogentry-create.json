@@ -1,8 +1,3 @@
 {
-    "body": "{\"raceId\":\"spartan-challeng2e\",\"log\":{\"distance\":43, \"minutes\":20}}",
-    "requestContext": {
-        "identity": {
-            "cognitoIdentityId": "USER-SUB-1234"
-        }
-    }
+    "body": "{\"raceId\":\"spartan-challenge\",  \"email\": \"antz_secret@yahoo.com\",  \"log\":{\"distance\":43, \"minutes\":20}}"
 }

@@ -65,14 +65,36 @@ export async function userRaces(event, context, callback) {
 
 
 export async function userRaceLog(event, context, callback) {
-  console.log(`${event.requestContext.identity.cognitoIdentityId}|${event.pathParameters.id}`);
+  const data = JSON.parse(event.body);
+  if (data && ! data.email) {
+    return callback(null, failure({ status: false, error: 'email address not provided' }));
+  }
   const params = {
     TableName: "virtualrun-userracelog",
     // 'Key' defines the partition key and sort key of the item to be retrieved
     // - 'userId': Identity Pool identity id of the authenticated user
     // - 'id': the race id
     Key: {
-      userId: `${event.requestContext.identity.cognitoIdentityId}`,
+      userId: data.email,
+      raceId:event.pathParameters.id,
+    },
+  };
+  await main(callback, params);
+};
+
+
+export async function userRaceLogFb(event, context, callback) {
+  const data = JSON.parse(event.body);
+  if (data && ! data.email) {
+    return callback(null, failure({ status: false, error: 'email address not provided' }));
+  }
+  const params = {
+    TableName: "virtualrun-userracelog",
+    // 'Key' defines the partition key and sort key of the item to be retrieved
+    // - 'userId': Identity Pool identity id of the authenticated user
+    // - 'id': the race id
+    Key: {
+      userId: `${data.email}`,
       raceId:event.pathParameters.id,
     },
   };

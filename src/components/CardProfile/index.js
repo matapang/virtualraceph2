@@ -13,7 +13,7 @@ class CardProfile extends React.Component {
     }
 
     render() {
-        const { name, id, distance, pace, runs } = this.props;
+        const { name, distance, pace, runs, email, profileImageUrl } = this.props;
         return (
             <div>
                 <Panel>
@@ -21,12 +21,11 @@ class CardProfile extends React.Component {
                         <Col xs={12}>
                             <Media>
                                 <Media.Left>
-                                    <img width={80} height={80} src="/assets/thumbnail.png" alt="Image" />
+                                    <img width={80} height={80} src={profileImageUrl} alt="No Profile Photo" />
                                 </Media.Left>
                                 <Media.Body>
                                     <Media.Heading>{name}</Media.Heading>
-                                    <TextInfo>{id}</TextInfo>
-                                    <AppLink to="/submit-run"> Following  <b>0</b></AppLink> | Followers <b>0</b>
+                                    <TextInfo>{email}</TextInfo>
                                 </Media.Body>
                             </Media>
                         </Col>
@@ -44,18 +43,14 @@ class CardProfile extends React.Component {
 
 CardProfile.defaultProps = {
     name: 'Anthony Wong',
-    id: '10132449',
-    distance: 100,
-    pace: '0-0',
-    runs: 10
+    email: '-',
+    profileImageUrl:'-'
 }
 
 CardProfile.propTypes = {
     name: PropTypes.string,
-    id: PropTypes.id,
-    distance: PropTypes.number,
-    pace: PropTypes.string,
-    runs: PropTypes.number
+    email:PropTypes.string,
+    profileImageUrl:PropTypes.string,
 };
 
 export default CardProfile;

@@ -1,10 +1,6 @@
 {
   "pathParameters": {
-    "id": "spartan-challeng2e"
+    "id": "spartan-challenge"
   },
-  "requestContext": {
-    "identity": {
-      "cognitoIdentityId": "USER-SUB-1234"
-    }
-  }
+  "body": "{\"email\":\"antz_secret@yahoo.com\"}"
 }

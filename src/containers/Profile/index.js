@@ -2,14 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import CardProfile from '../../components/CardProfile';
 
-const Profile = ({email}) => {
-    console.log(email);
-    return <CardProfile email={email} />
+const Profile = (props) => {    
+    console.log(props.profileImageUrl);
+    return <CardProfile {...props} />
 }
 
 function mapState(state) {
     return {
-        email: state.user.get("email")
+        email: state.user.get("email"),
+        name: state.user.get("name"),
+        profileImageUrl: state.user.get("profileImageUrl"),
     }
 }
 

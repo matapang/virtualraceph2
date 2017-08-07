@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {updateUserInfo} from '../modules/user';
+import AWS from 'aws-sdk';
 import {
   FormGroup,
   FormControl,
@@ -9,6 +12,8 @@ import {
   AuthenticationDetails,
   CognitoUser
 } from 'amazon-cognito-identity-js';
+
+import FacebookLogin from 'react-facebook-login';
 import { withRouter } from 'react-router-dom';
 import LoaderButton from '../components/LoaderButton';
 import config from '../config.js';
@@ -63,18 +68,33 @@ class Login extends Component {
     this.setState({ isLoading: true });
 
     try {
-      const userToken = await this.login(this.state.username, this.state.password);
+      const userToken = await this.login(this.state.username, this.state.password);      
       this.props.updateUserToken(userToken);
     }
-    catch(e) {
+    catch (e) {
       alert(e);
       this.setState({ isLoading: false });
     }
   }
 
+  responseFacebook = (response) => {        
+    this.props.dispatch(updateUserInfo(response.email, response.name, response.picture.data.url))
+    this.props.updateUserToken(response.accessToken);
+  }
+
   render() {
     return (
       <div className="Login">
+        <FacebookLogin
+          appId={config.FB_APP_ID}
+          autoLoad={true}
+          fields="name,email,picture"
+          callback={this.responseFacebook}
+          cssClass="btn btn-primary"
+          icon="fa-facebook"
+        />
+
+
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="username" bsSize="large">
             <ControlLabel>Email</ControlLabel>
@@ -94,7 +114,7 @@ class Login extends Component {
           <LoaderButton
             block
             bsSize="large"
-            disabled={ ! this.validateForm() }
+            disabled={!this.validateForm()}
             type="submit"
             isLoading={this.state.isLoading}
             text="Login"
@@ -105,4 +125,4 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+export default withRouter(connect()(Login));

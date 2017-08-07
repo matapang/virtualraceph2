@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
-import {Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 import { invokeApig } from '../..//libs/awsLib';
 import { ListGroup, ListGroupItem, Panel, Alert } from 'react-bootstrap';
@@ -37,7 +37,12 @@ class RaceLogs extends Component {
     }
 
     getUserRaceLog() {
-        return invokeApig({ path: `/user/log/${this.props.match.params.id}` }, this.props.userToken);
+        return invokeApig({
+            path: `/user/log/${this.props.match.params.id}`,
+            method: "POST",
+            body: { email: this.props.email }
+        },
+        this.props.userToken);
     }
 
     onViewDetails = (log, key) => {
@@ -65,12 +70,12 @@ class RaceLogs extends Component {
 
                     <div className="col-md-8">
                         <ListGroup>
-                            {logs.map((log, key) => <LogItem log={log} key={key} index={key} onClick={()=> this.onViewDetails(log, key)}/>)}
+                            {logs.map((log, key) => <LogItem log={log} key={key} index={key} onClick={() => this.onViewDetails(log, key)} />)}
                         </ListGroup>
                     </div>
                 </div>
 
-                
+
             </div>
         );
     }
@@ -80,6 +85,7 @@ class RaceLogs extends Component {
     render() {
         const { id } = this.props.match.params;
         const { logs, showDetails } = this.state;
+
         if (showDetails) {
             return <LogDetails log={this.state.selectedLog}
                 logId={this.state.selectedLogId} raceId={id}
@@ -91,7 +97,7 @@ class RaceLogs extends Component {
                 <div>
                     <h1>Race {id}
                         <div className="pull-right">
-                            <Link to={`/submit-run/${id}`} className="btn btn-primary" style={{color:"white"}}><i className="fa fa-plus" /> Add Log </Link>
+                            <Link to={`/submit-run/${id}`} className="btn btn-primary" style={{ color: "white" }}><i className="fa fa-plus" /> Add Log </Link>
                         </div>
                     </h1>
                     <br />
@@ -109,7 +115,8 @@ function mapState(state, ownProps) {
     const logs = raceInfo ? raceInfo.get("logs").toJS() : [];
 
     return {
-        logs: logs
+        logs: logs,
+        email: state.user.get("email")
     }
 }
 

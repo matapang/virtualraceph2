@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import FormSubmitRun from '../../components/FormSubmitRun';
 import AppLayout from '../../components/AppLayout';
@@ -33,10 +34,10 @@ export class SubmitRun extends React.Component { // eslint-disable-line react/pr
     }
 
     let newLog = Object.assign({}, log, { uploadedFilename });
-    const model = { log: newLog, raceId: id };
+    const model = { log: newLog, raceId: id, email:this.props.email };
     try {
       const response = await invokeApig({
-        path: '/user/log',
+        path: '/user/log-entry',
         method: 'POST',
         body: model,
       }, this.props.userToken);
@@ -44,6 +45,8 @@ export class SubmitRun extends React.Component { // eslint-disable-line react/pr
     catch (e) {
       console.log(e);
     }
+
+    
     this.goBack();
 
   }
@@ -57,4 +60,11 @@ export class SubmitRun extends React.Component { // eslint-disable-line react/pr
   }
 }
 
-export default withRouter(SubmitRun);
+
+function mapState(state)  {
+  return {
+    email:state.user.get("email")
+  };
+}
+
+export default withRouter(connect(mapState)(SubmitRun));

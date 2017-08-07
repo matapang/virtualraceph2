@@ -1,11 +1,7 @@
 {
+    "body": "{\"email\": \"antz_secret@yahoo.com\"}",
     "pathParameters": {
-        "id":"spartan-challeng2e",
-        "logId": "1"
-    },
-    "requestContext": {
-        "identity": {
-            "cognitoIdentityId": "USER-SUB-1234"
-        }
+        "id":"spartan-challenge",
+        "logId": "0"
     }
 }
