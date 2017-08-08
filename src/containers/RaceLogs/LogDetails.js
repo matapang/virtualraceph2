@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import {connect} from 'react-redux';
 import { Button, Panel, Row, Col } from 'react-bootstrap';
 import ImageRun from '../../components/ImageRun';
 import LogItem from './LogItem';
@@ -16,7 +17,8 @@ class LogDetails extends Component {
     }
 
     async deleteLog(raceId, logId) {
-        await invokeApig({ path: `/user/log-entry/${raceId}/${logId}`, method: 'DELETE' }, this.props.userToken);
+        await invokeApig({ path: `/user/log-entry/${raceId}/${logId}`, method: 'PUT', 
+            body:{email:this.props.email} }, this.props.userToken);
         this.setState({ loading: false }, () => {
             if (this.props.onBack) {
                 this.props.onBack(true);
@@ -69,4 +71,10 @@ LogDetails.propTypes = {
     onBack: PropTypes.func
 };
 
-export default LogDetails;
+function mapState(state) {
+    return {
+        email:state.user.get("email")
+    }
+}
+
+export default connect(mapState)(LogDetails);

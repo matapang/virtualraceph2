@@ -90,6 +90,7 @@ export async function s3Upload(file, userToken) {
       Bucket: config.s3.BUCKET,
     }
   });
+  debugger;
   const filename = `${AWS.config.credentials.identityId}-${Date.now()}-${file.name}`;
 
   return s3.upload({

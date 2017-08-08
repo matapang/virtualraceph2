@@ -5,12 +5,14 @@ import FormSubmitRun from '../../components/FormSubmitRun';
 import AppLayout from '../../components/AppLayout';
 
 import { invokeApig, s3Upload } from '../../libs/awsLib';
+import Spinner from '../../components/Spinner';
 import config from '../../config';
 
 export class SubmitRun extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   state = {
-    showUploadError:true
+    showUploadError:true,
+    loading:false,
   }
   onSubmit = (model, file) => {
     //TODO, call actual API for submit here
@@ -26,7 +28,9 @@ export class SubmitRun extends React.Component { // eslint-disable-line react/pr
     const { id } = this.props.match.params;
 
     let uploadedFilename = null;
+
     if (file && file.size < config.MAX_ATTACHMENT_SIZE) {
+      this.setState({loading:true});
       uploadedFilename = (await s3Upload(file, this.props.userToken)).Location;
     }
     else if (file && file.size >= config.MAX_ATTACHMENT_SIZE) {
@@ -45,15 +49,17 @@ export class SubmitRun extends React.Component { // eslint-disable-line react/pr
     catch (e) {
       console.log(e);
     }
-
+    this.setState({loading:false});
     
     this.goBack();
 
   }
 
   render() {
+    const {loading} = this.state;
     return (
       <AppLayout>
+        {loading && <Spinner />}
         <FormSubmitRun onSubmit={this.onSubmit} onCancel={this.goBack} />
       </AppLayout>
     );

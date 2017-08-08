@@ -154,6 +154,6 @@ functions:
     events:
       - http:
           path: user/log-entry/{id}/{logId}
-          method: delete
+          method: put
           cors: true
           authorizer: aws_iam

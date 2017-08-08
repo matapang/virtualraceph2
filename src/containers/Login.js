@@ -84,7 +84,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="Login">
+      <div className="Login text-center">
         <FacebookLogin
           appId={config.FB_APP_ID}
           autoLoad={true}
@@ -93,7 +93,7 @@ class Login extends Component {
           cssClass="btn btn-primary"
           icon="fa-facebook"
         />
-
+        {/*
 
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="username" bsSize="large">
@@ -119,7 +119,7 @@ class Login extends Component {
             isLoading={this.state.isLoading}
             text="Login"
             loadingText="Logging in…" />
-        </form>
+        </form>*/}
       </div>
     );
   }
