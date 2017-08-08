@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {updateUserInfo} from '../modules/user';
+import { connect } from 'react-redux';
+import { updateUserInfo } from '../modules/user';
 import AWS from 'aws-sdk';
 import {
   FormGroup,
   FormControl,
   ControlLabel,
+  Well
 } from 'react-bootstrap';
 import {
   CognitoUserPool,
@@ -68,7 +69,7 @@ class Login extends Component {
     this.setState({ isLoading: true });
 
     try {
-      const userToken = await this.login(this.state.username, this.state.password);      
+      const userToken = await this.login(this.state.username, this.state.password);
       this.props.updateUserToken(userToken);
     }
     catch (e) {
@@ -77,22 +78,24 @@ class Login extends Component {
     }
   }
 
-  responseFacebook = (response) => {        
+  responseFacebook = (response) => {
     this.props.dispatch(updateUserInfo(response.email, response.name, response.picture.data.url))
     this.props.updateUserToken(response.accessToken);
   }
 
   render() {
     return (
-      <div className="Login text-center">
-        <FacebookLogin
-          appId={config.FB_APP_ID}
-          autoLoad={true}
-          fields="name,email,picture"
-          callback={this.responseFacebook}
-          cssClass="btn btn-primary"
-          icon="fa-facebook"
-        />
+      <div className="Login text-center" >
+          <h1>Virtual Race PHILIPPINES</h1>
+          <h2>Run for a Cause</h2>
+          <FacebookLogin
+            appId={config.FB_APP_ID}
+            autoLoad={true}
+            fields="name,email,picture"
+            callback={this.responseFacebook}
+            cssClass="btn btn-primary"
+            icon="fa-facebook"
+          />
         {/*
 
         <form onSubmit={this.handleSubmit}>

@@ -96,7 +96,7 @@ class App extends Component {
 
     this.updateUserToken(null);
 
-    this.props.history.push('/login');
+    this.props.history.push('/');
   }
 
   render() {
