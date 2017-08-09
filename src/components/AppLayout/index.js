@@ -5,6 +5,7 @@
 */
 
 import React from 'react';
+import {PropTypes} from 'prop-types';
 import styled from 'styled-components';
 import Footer from '../Footer';
 
@@ -23,19 +24,24 @@ class AppLayout extends React.Component {
   }
 
   render() {
+    const {hideFooter} = this.props;
     return (
         <div>          
           <ContentWrapper style={{padding:5}} >            
                {this.props.children}            
           </ContentWrapper>
-          <Footer/>
+          {!hideFooter && <Footer/>}
         </div>
     );
   }
 }
 
-AppLayout.propTypes = {
+AppLayout.defaultProps = {
+  hideFooter:false
+}
 
+AppLayout.propTypes = {
+  hideFooter:PropTypes.bool
 };
 
 export default AppLayout;
