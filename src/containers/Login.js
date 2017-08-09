@@ -6,7 +6,7 @@ import {
   FormGroup,
   FormControl,
   ControlLabel,
-  Well
+  Panel
 } from 'react-bootstrap';
 import {
   CognitoUserPool,
@@ -17,6 +17,7 @@ import {
 import FacebookLogin from 'react-facebook-login';
 import { withRouter } from 'react-router-dom';
 import LoaderButton from '../components/LoaderButton';
+import Logo from '../components/Logo';
 import config from '../config.js';
 import './Login.css';
 
@@ -85,9 +86,21 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="Login text-center" >
-          <h1>Virtual Race PHILIPPINES</h1>
-          <h2>Run for a Cause</h2>
+      <div className="text-center" style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }} >
+        <p style={{
+          height: "50%",
+          backgroundImage: "url('https://virtualraceph.com/wp-content/uploads/2016/12/virtualraceph_frontpage_objectives-1-2560x550.png')",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover"
+
+        }}>
+        </p>
+        <div style={{ paddingTop: 30 }}>
+          <img src="https://virtualraceph.com/wp-content/uploads/2017/05/VRPH_Long_Rectangle.png"
+            style={{ width: 300 }}
+          />
+          <p className="lead">Run for a cause</p>
           <FacebookLogin
             appId={config.FB_APP_ID}
             autoLoad={true}
@@ -96,33 +109,34 @@ class Login extends Component {
             cssClass="btn btn-primary"
             icon="fa-facebook"
           />
-        {/*
+        </div>
+        <br/>
 
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="username" bsSize="large">
-            <ControlLabel>Email</ControlLabel>
-            <FormControl
-              autoFocus
-              type="email"
-              value={this.state.username}
-              onChange={this.handleChange} />
-          </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              value={this.state.password}
-              onChange={this.handleChange}
-              type="password" />
-          </FormGroup>
-          <LoaderButton
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-            isLoading={this.state.isLoading}
-            text="Login"
-            loadingText="Logging in…" />
-        </form>*/}
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-xs-3">
+              <Panel>
+                Step 1
+              </Panel>
+            </div>
+            <div className="col-xs-3">
+              <Panel>
+                Step 2
+              </Panel>
+            </div>
+            <div className="col-xs-3">
+              <Panel>
+                Step 3
+              </Panel>
+            </div>
+            <div className="col-xs-3">
+              <Panel>
+                Step 4
+              </Panel>
+            </div>
+
+          </div>
+        </div>
       </div>
     );
   }
