@@ -18,6 +18,8 @@ import FacebookLogin from 'react-facebook-login';
 import { withRouter } from 'react-router-dom';
 import LoaderButton from '../components/LoaderButton';
 import Logo from '../components/Logo';
+import Footer from '../components/Footer';
+import ImageLandingPage from '../components/ImageLandingPage';
 import config from '../config.js';
 import './Login.css';
 
@@ -86,31 +88,23 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="text-center" style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }} >
-        <p style={{
-          height: "50%",
-          backgroundImage: "url('https://virtualraceph.com/wp-content/uploads/2016/12/virtualraceph_frontpage_objectives-1-2560x550.png')",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover"
-
-        }}>
-        </p>
-        <div style={{ paddingTop: 30 }}>
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }} >
+        <ImageLandingPage />
+        <div style={{ paddingTop: 30 }} className="text-center">
           <img src="https://virtualraceph.com/wp-content/uploads/2017/05/VRPH_Long_Rectangle.png"
             style={{ width: 300 }}
           />
           <p className="lead">Run for a cause</p>
           <FacebookLogin
             appId={config.FB_APP_ID}
-            autoLoad={true}
+            autoLoad={false}
             fields="name,email,picture"
             callback={this.responseFacebook}
             cssClass="btn btn-primary"
             icon="fa-facebook"
           />
         </div>
-        <br/>
+        <br />
 
         <div className="container-fluid">
           <div className="row">
@@ -137,6 +131,7 @@ class Login extends Component {
 
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

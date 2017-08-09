@@ -10,6 +10,7 @@ import LogDetails from './LogDetails';
 import LogItem from './LogItem';
 import Total from './Total';
 import Spinner from '../../components/Spinner';
+import AppLayout from '../../components/AppLayout';
 
 const Text = styled.label`
     font-size:24px;
@@ -42,7 +43,7 @@ class RaceLogs extends Component {
             method: "POST",
             body: { email: this.props.email }
         },
-        this.props.userToken);
+            this.props.userToken);
     }
 
     onViewDetails = (log, key) => {
@@ -93,18 +94,20 @@ class RaceLogs extends Component {
                 userToken={this.props.userToken} />
         }
         return (
-            <Spinner spinning={this.state.loading}>
-                <div>
-                    <h1>Race {id}
-                        <div className="pull-right">
-                            <Link to={`/submit-run/${id}`} className="btn btn-primary" style={{ color: "white" }}><i className="fa fa-plus" /> Add Log </Link>
-                        </div>
-                    </h1>
-                    <br />
-                    {logs.length > 0 ?
-                        this.renderLogs(logs) : <Alert bsStyle="warning">You have no logs</Alert>}
-                </div>
-            </Spinner>
+            <AppLayout>
+                <Spinner spinning={this.state.loading}>
+                    <div>
+                        <h1>Race {id}
+                            <div className="pull-right">
+                                <Link to={`/submit-run/${id}`} className="btn btn-primary" style={{ color: "white" }}><i className="fa fa-plus" /> Add Log </Link>
+                            </div>
+                        </h1>
+                        <br />
+                        {logs.length > 0 ?
+                            this.renderLogs(logs) : <Alert bsStyle="warning">You have no logs</Alert>}
+                    </div>
+                </Spinner>
+            </AppLayout>
         );
     }
 }

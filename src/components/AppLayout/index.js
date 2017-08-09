@@ -5,17 +5,13 @@
 */
 
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
-import { Layout, Menu, Icon, Breadcrumb } from 'antd';
+import styled from 'styled-components';
+import Footer from '../Footer';
 
-const SubMenu = Menu.SubMenu;
-const { Header, Content, Footer, Sider } = Layout;
-
-const ContentWrapper = styled(Content)`    
+const ContentWrapper = styled.div`    
   margin: 0;
-  overflow:auto;
-  margin-bottom:64px;
-  
+  max-width:992px;
+  margin:auto;
 `;
 class AppLayout extends React.Component {
   state = {
@@ -28,11 +24,12 @@ class AppLayout extends React.Component {
 
   render() {
     return (
-        <Layout style={{overflow:'hidden', marginTop:-20, marginBottom:-20, background:'white'}}>          
+        <div>          
           <ContentWrapper style={{padding:5}} >            
                {this.props.children}            
           </ContentWrapper>
-        </Layout>
+          <Footer/>
+        </div>
     );
   }
 }
