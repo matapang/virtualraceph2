@@ -30,8 +30,8 @@ export class SubmitRun extends React.Component { // eslint-disable-line react/pr
 
     let uploadedFilename = null;
 
-    if (file && file.name.length > 10) {
-      this.setState({ errorMsg: "Filename exceeds length of 10" });
+    if (file && file.name.length > 20) {
+      this.setState({ errorMsg: "Filename exceeds length of 20" });
       return;
     }
 
