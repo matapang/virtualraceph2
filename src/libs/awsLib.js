@@ -82,7 +82,7 @@ export function getAwsFBCredentials(userToken) {
 }
 
 
-export async function s3Upload(file, userToken) {
+export async function s3Upload(file, userToken, email) {
   await getAwsFBCredentials(userToken);
 
   const s3 = new AWS.S3({
@@ -90,7 +90,6 @@ export async function s3Upload(file, userToken) {
       Bucket: config.s3.BUCKET,
     }
   });
-  debugger;
   const filename = `${AWS.config.credentials.identityId}-${Date.now()}-${file.name}`;
 
   return s3.upload({

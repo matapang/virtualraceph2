@@ -17,6 +17,7 @@ class CardProfile extends React.Component {
         return (
             <div>
                 <Panel>
+
                     <Row >
                         <Col xs={12}>
                             <Media>
@@ -24,17 +25,21 @@ class CardProfile extends React.Component {
                                     <img width={80} height={80} src={profileImageUrl} alt="No Profile Photo" />
                                 </Media.Left>
                                 <Media.Body>
-                                    <Media.Heading>{name}</Media.Heading>
+                                    <Media.Heading>{name}
+                                        <div className="pull-right hidden-sm">
+                                            <i className="fa fa-2x fa-star-half-o" />
+                                        </div>
+                                    </Media.Heading>
                                     <TextInfo>{email}</TextInfo>
                                 </Media.Body>
                             </Media>
                         </Col>
                     </Row>
-                    <br/>
-                    <Row>
+                    <br />
+                    {/*<Row>
                         <Col xs={12} md={6}> <Link to="/submit-run"><Button bsStyle="primary"> Submit Run</Button></Link></Col>
                         <Col xs={12} md={6}><Button > Logs </Button></Col>
-                    </Row>
+                    </Row>*/}
                 </Panel>
             </div>
         )
@@ -44,13 +49,13 @@ class CardProfile extends React.Component {
 CardProfile.defaultProps = {
     name: 'Anthony Wong',
     email: '-',
-    profileImageUrl:'-'
+    profileImageUrl: '-'
 }
 
 CardProfile.propTypes = {
     name: PropTypes.string,
-    email:PropTypes.string,
-    profileImageUrl:PropTypes.string,
+    email: PropTypes.string,
+    profileImageUrl: PropTypes.string,
 };
 
 export default CardProfile;

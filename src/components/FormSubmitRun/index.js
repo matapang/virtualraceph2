@@ -41,7 +41,7 @@ class FormSubmitRun extends Component {
                 seconds:parseInt(this.state.seconds)
             }
             console.log(backendModel);
-
+            this.setState({isLoading:true});
             this.props.onSubmit(backendModel, this.file);
         }
     }
@@ -108,7 +108,7 @@ class FormSubmitRun extends Component {
                         bsStyle="primary"
                         disabled={!this.validateForm()}
                         type="submit"
-                        isLoading={this.state.isLoading}
+                        isLoading={this.props.loading}
                         text="Submit Run"
                         loadingText="Submitting Run..." />&nbsp;
                     <Button onClick={this.props.onCancel}> Cancel</Button>

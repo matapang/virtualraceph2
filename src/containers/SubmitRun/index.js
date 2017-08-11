@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { Alert } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import FormSubmitRun from '../../components/FormSubmitRun';
 import AppLayout from '../../components/AppLayout';
@@ -11,8 +12,8 @@ import config from '../../config';
 export class SubmitRun extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   state = {
-    showUploadError:true,
-    loading:false,
+    showUploadError: true,
+    loading: false,
   }
   onSubmit = (model, file) => {
     //TODO, call actual API for submit here
@@ -29,16 +30,23 @@ export class SubmitRun extends React.Component { // eslint-disable-line react/pr
 
     let uploadedFilename = null;
 
-    if (file && file.size < config.MAX_ATTACHMENT_SIZE) {
-      this.setState({loading:true});
-      uploadedFilename = (await s3Upload(file, this.props.userToken)).Location;
-    }
-    else if (file && file.size >= config.MAX_ATTACHMENT_SIZE) {
+    if (file && file.name.length > 10) {
+      this.setState({ errorMsg: "Filename exceeds length of 10" });
       return;
     }
 
+    if (file && file.size < config.MAX_ATTACHMENT_SIZE) {
+      this.setState({ loading: true });
+      uploadedFilename = (await s3Upload(file, this.props.userToken)).Location;
+    }
+    else if (file && file.size >= config.MAX_ATTACHMENT_SIZE) {
+      this.setState({ errorMsg: "File exceeds 5MB", loading:false });
+      return;
+    }
+
+
     let newLog = Object.assign({}, log, { uploadedFilename });
-    const model = { log: newLog, raceId: id, email:this.props.email };
+    const model = { log: newLog, raceId: id, email: this.props.email };
     try {
       const response = await invokeApig({
         path: '/user/log-entry',
@@ -49,27 +57,29 @@ export class SubmitRun extends React.Component { // eslint-disable-line react/pr
     catch (e) {
       console.log(e);
     }
-    this.setState({loading:false});
-    
-    this.goBack();
+    this.setState({ loading: false }, () =>
+
+      this.goBack()
+    );
+
 
   }
 
   render() {
-    const {loading} = this.state;
+    const { loading } = this.state;
     return (
       <AppLayout>
-        {loading && <Spinner />}
-        <FormSubmitRun onSubmit={this.onSubmit} onCancel={this.goBack} />
+        {this.state.errorMsg && <Alert bsStyle="danger" closable={true}>{this.state.errorMsg}</Alert>}
+        <FormSubmitRun onSubmit={this.onSubmit} onCancel={this.goBack} loading={loading}/>
       </AppLayout>
     );
   }
 }
 
 
-function mapState(state)  {
+function mapState(state) {
   return {
-    email:state.user.get("email")
+    email: state.user.get("email")
   };
 }
 

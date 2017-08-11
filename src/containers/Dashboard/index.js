@@ -16,7 +16,7 @@ import Logo from '../../components/Logo';
 import Profile from '../Profile';
 import EventRaces from '../EventsRaces';
 
-import { Tabs, Tab } from 'react-bootstrap';
+import { Tabs, Tab, Alert } from 'react-bootstrap';
 
 export class Dashboard extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -27,16 +27,20 @@ export class Dashboard extends React.Component { // eslint-disable-line react/pr
         <Profile />
 
 
-        <Tabs defaultActiveKey={2}>
-          <Tab eventKey={1} title="Event Races">
-            {/*<CardRaces onClick={(id) => this.props.history.push(`/races/${id}`)} />*/}
-            <EventRaces  onClick={(id) => this.props.history.push(`/races/${id}`)}/>
-          </Tab>
-          <Tab eventKey={2} title="Active Races">
+        <Tabs defaultActiveKey={1}>
+          <Tab eventKey={1} title="Active Races">
             <ActiveRaces />
           </Tab>
-          <Tab eventKey={3} title="Past Races">
+
+          <Tab eventKey={2} title="Past Races">
+            <br/>
+            <Alert>You have no log history</Alert>
           </Tab>
+          <Tab eventKey={3} title="Event Races">
+            {/*<CardRaces onClick={(id) => this.props.history.push(`/races/${id}`)} />*/}
+            <EventRaces onClick={(id) => this.props.history.push(`/races/${id}`)} />
+          </Tab>
+
 
         </Tabs>
       </AppLayout>
