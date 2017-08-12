@@ -37,7 +37,7 @@ class LogDetails extends Component {
                 </div>
                 <div>
                     <div className="row">
-                        <div className="col-sm-4">
+                        <div className="col-sm-8">
 
                             <ImageRun src={log.uploadedFilename} className="img-responsive" />
                         </div>
