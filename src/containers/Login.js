@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Reveal from 'react-reveal';
 import { updateUserInfo } from '../modules/user';
 import AWS from 'aws-sdk';
 import {
@@ -18,6 +19,7 @@ import FacebookLogin from 'react-facebook-login';
 import { withRouter } from 'react-router-dom';
 import LoaderButton from '../components/LoaderButton';
 import Logo from '../components/Logo';
+import AboutUs from '../components/AboutUs';
 import Footer from '../components/Footer';
 import ImageLandingPage from '../components/ImageLandingPage';
 import config from '../config.js';
@@ -32,6 +34,10 @@ class Login extends Component {
       username: '',
       password: '',
     };
+  }
+
+  componentDidMount() {
+    window.sr.reveal('#about', {duration:2000});
   }
 
   validateForm() {
@@ -88,12 +94,59 @@ class Login extends Component {
 
   render() {
     return (
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }} >
-        <ImageLandingPage />
-        <div style={{ paddingTop: 30 }} className="text-center">
-          <img src="https://virtualraceph.com/wp-content/uploads/2017/05/VRPH_Long_Rectangle.png"
-            style={{ width: 300 }}
-          />
+      <div className="" >
+        
+        <div className="text-center">
+        
+          <br/>
+          
+          <br/>
+          
+          <br/>
+     
+         
+          <br/>
+          
+          <br/>
+          
+          <br/>
+          
+          <br/>
+          
+          <br/>
+          
+          <br/>
+          
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+      
+         
+          
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          
+          <br/>
+          <br/>
+          <br/>
+
+          <div id="about">
+          <AboutUs/>
+          </div>
+        
           <p className="lead">Run for a cause</p>
           <FacebookLogin
             appId={config.FB_APP_ID}
@@ -106,31 +159,6 @@ class Login extends Component {
         </div>
         <br />
 
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-xs-3">
-              <Panel>
-                Step 1
-              </Panel>
-            </div>
-            <div className="col-xs-3">
-              <Panel>
-                Step 2
-              </Panel>
-            </div>
-            <div className="col-xs-3">
-              <Panel>
-                Step 3
-              </Panel>
-            </div>
-            <div className="col-xs-3">
-              <Panel>
-                Step 4
-              </Panel>
-            </div>
-
-          </div>
-        </div>
         <Footer />
       </div>
     );

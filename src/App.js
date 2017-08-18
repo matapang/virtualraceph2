@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {updateUserInfo} from './modules/user';
+import ScrollReveal from 'scrollreveal';
 import {
   withRouter,
   Link
@@ -18,9 +19,12 @@ import Routes from './Routes';
 import RouteNavItem from './components/RouteNavItem';
 import config from './config.js';
 import theme from './theme';
+import './assets/css/orange.css';
+import 'animate.css/animate.css';
 import './App.css';
 import { ThemeProvider } from 'styled-components';
 
+window.sr = new ScrollReveal();
 class App extends Component {
 
   constructor(props) {
@@ -111,7 +115,8 @@ class App extends Component {
         <ThemeProvider theme={theme}>
           <div>
             <AppNav userToken={this.state.userToken} history={this.props.history} handleLogout={this.handleLogout} />
-              <Routes childProps={childProps} />
+              
+            <Routes childProps={childProps} />
           </div>
         </ThemeProvider>
       );
