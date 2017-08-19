@@ -39,7 +39,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    window.sr.reveal('#about', { duration: 2000 });
+    window.sr.reveal(this.refs.about, { duration: 1500 });
   }
 
   validateForm() {
@@ -99,22 +99,24 @@ class Login extends Component {
       <div className="" >
 
         <div >
-          <div style={{marginLeft:"10%"}}>
+          <div style={{ marginLeft: "10%" }}>
             <Banner />
             <FacebookLogin
               appId={config.FB_APP_ID}
               autoLoad={false}
               fields="name,email,picture"
               callback={this.responseFacebook}
-              cssClass="btn btn-primary"
+              cssClass="btn btn-info"
               icon="fa-facebook"
             />
           </div>
 
-          <div className="text-center" id="about">
+          <div className="text-center"  ref="about">
             <AboutUs />
+          </div>
 
-            <HowItWorks/>
+          <div className="text-center">
+            <HowItWorks />
           </div>
         </div>
         <br />

@@ -3,9 +3,9 @@ import Section from '../../components/Section';
 
 const AboutUs = () => {
 	return (
-		<div id="fh5co-about-us" data-section="about">
+		<div id="fh5co-about-us">
 			<div className="container">
-				<div className="row row-bottom-padded-lg" id="about-us">
+				<div className="row" id="about-us">
 					<Section title="About Us">
 						<div className="row">
 							<div className="col-md-8 col-md-offset-2">
