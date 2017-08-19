@@ -20,6 +20,8 @@ import { withRouter } from 'react-router-dom';
 import LoaderButton from '../components/LoaderButton';
 import Logo from '../components/Logo';
 import AboutUs from '../components/AboutUs';
+import Banner from '../components/Banner';
+import HowItWorks from '../components/HowItWorks';
 import Footer from '../components/Footer';
 import ImageLandingPage from '../components/ImageLandingPage';
 import config from '../config.js';
@@ -37,7 +39,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    window.sr.reveal('#about', {duration:2000});
+    window.sr.reveal('#about', { duration: 2000 });
   }
 
   validateForm() {
@@ -95,67 +97,25 @@ class Login extends Component {
   render() {
     return (
       <div className="" >
-        
-        <div className="text-center">
-        
-          <br/>
-          
-          <br/>
-          
-          <br/>
-     
-         
-          <br/>
-          
-          <br/>
-          
-          <br/>
-          
-          <br/>
-          
-          <br/>
-          
-          <br/>
-          
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-      
-         
-          
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          
-          <br/>
-          <br/>
-          <br/>
 
-          <div id="about">
-          <AboutUs/>
+        <div >
+          <div style={{marginLeft:"10%"}}>
+            <Banner />
+            <FacebookLogin
+              appId={config.FB_APP_ID}
+              autoLoad={false}
+              fields="name,email,picture"
+              callback={this.responseFacebook}
+              cssClass="btn btn-primary"
+              icon="fa-facebook"
+            />
           </div>
-        
-          <p className="lead">Run for a cause</p>
-          <FacebookLogin
-            appId={config.FB_APP_ID}
-            autoLoad={false}
-            fields="name,email,picture"
-            callback={this.responseFacebook}
-            cssClass="btn btn-primary"
-            icon="fa-facebook"
-          />
+
+          <div className="text-center" id="about">
+            <AboutUs />
+
+            <HowItWorks/>
+          </div>
         </div>
         <br />
 

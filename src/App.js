@@ -19,6 +19,7 @@ import Routes from './Routes';
 import RouteNavItem from './components/RouteNavItem';
 import config from './config.js';
 import theme from './theme';
+import 'tachyons/css/tachyons.min.css';
 import './assets/css/orange.css';
 import 'animate.css/animate.css';
 import './App.css';

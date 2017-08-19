@@ -29,13 +29,13 @@ const Footer = () => {
             GET IN TOUCH WITH US
         </h3>
         <div>
-            Phone: +63956-135-6533
+            Phone: +6399999999
         </div>
         <div style={{margin:0}}>
             <span style={{ opacity: 0.51 }}>Monday-Friday:</span>&nbsp;9.00 am - 8.00 pm
         </div>
         <br />
-        <a className="text-white" href="mailto:someone@example.com">contactus@virtualraceph.com</a>
+        <a className="text-white" href="mailto:someone@example.com">contactus@virtualrunnerph.com</a>
     </Wrapper>);
 }
 
